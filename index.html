@@ -55,7 +55,7 @@
   </header>
 
   <!-- CONTEÚDO PRINCIPAL -->
-  <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6">
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6">
 
     <!-- 1. TELA INICIAL -->
     <section id="view-home" class="py-12 flex flex-col items-center justify-center text-center">
@@ -96,7 +96,7 @@
 
     <!-- 2. TELA DE CADASTRO / EDIÇÃO -->
     <section id="view-cadastro" class="hidden">
-      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl">
+      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-3xl mx-auto">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-brand-border">
           <div>
             <h2 id="form-title" class="text-xl font-bold text-white">Cadastrar Membro</h2>
@@ -126,11 +126,19 @@
             </div>
           </div>
 
-          <!-- Cargo & Estado Civil -->
+          <!-- Possui Cargo Ministerial & Estado Civil -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Cargo Eclesiástico *</label>
-              <input type="text" id="cargo" required placeholder="Ex: Membro, Diácono, Presbítero, Pastor" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Possui Cargo Ministerial? *</label>
+              <select id="cargo" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
+                <option value="">Selecione...</option>
+                <option value="Membro">Membro (Sem cargo ministerial)</option>
+                <option value="Diácono / Diaconisa">Diácono / Diaconisa</option>
+                <option value="Presbítero">Presbítero</option>
+                <option value="Evangelista">Evangelista</option>
+                <option value="Pastor / Pastora">Pastor / Pastora</option>
+                <option value="Missionário(a)">Missionário(a)</option>
+              </select>
             </div>
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Estado Civil *</label>
@@ -145,10 +153,25 @@
             </div>
           </div>
 
-          <!-- WhatsApp -->
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">WhatsApp (XX-9XXXX-XXXX) *</label>
-            <input type="tel" id="whatsapp" required placeholder="11-98765-4321" maxlength="13" oninput="formatWhatsapp(this)" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+          <!-- Toca Instrumento & WhatsApp -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Toca algum instrumento musical? *</label>
+              <select id="instrumento" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
+                <option value="Não">Não toca nenhum instrumento</option>
+                <option value="Violão">Violão</option>
+                <option value="Teclado / Piano">Teclado / Piano</option>
+                <option value="Bateria / Percussão">Bateria / Percussão</option>
+                <option value="Baixo">Baixo</option>
+                <option value="Guitarra">Guitarra</option>
+                <option value="Voz / Vocal">Voz / Vocal</option>
+                <option value="Outro">Outro instrumento</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">WhatsApp (XX-9XXXX-XXXX) *</label>
+              <input type="tel" id="whatsapp" required placeholder="11-98765-4321" maxlength="13" oninput="formatWhatsapp(this)" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
           </div>
 
           <div class="pt-4 flex gap-3">
@@ -166,9 +189,20 @@
     <!-- 3. TELA DE PESQUISA / EDIÇÃO -->
     <section id="view-pesquisa" class="hidden space-y-4">
       <div class="bg-brand-card border border-brand-border rounded-xl p-5">
-        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
-          <input type="text" id="filtro-nome" oninput="applyFilters()" placeholder="Filtrar por nome ou cargo..." class="w-full sm:w-80 bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold" />
-          <select id="filtro-estado-civil" onchange="applyFilters()" class="w-full sm:w-48 bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <input type="text" id="filtro-nome" oninput="applyFilters()" placeholder="Filtrar por nome..." class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold" />
+          
+          <select id="filtro-cargo" onchange="applyFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold">
+            <option value="">Todos os Cargos</option>
+            <option value="Membro">Membro</option>
+            <option value="Diácono / Diaconisa">Diácono / Diaconisa</option>
+            <option value="Presbítero">Presbítero</option>
+            <option value="Evangelista">Evangelista</option>
+            <option value="Pastor / Pastora">Pastor / Pastora</option>
+            <option value="Missionário(a)">Missionário(a)</option>
+          </select>
+
+          <select id="filtro-estado-civil" onchange="applyFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold">
             <option value="">Todos os Estados Civis</option>
             <option value="Solteiro(a)">Solteiro(a)</option>
             <option value="Casado(a)">Casado(a)</option>
@@ -179,18 +213,18 @@
         </div>
       </div>
 
-      <!-- Tabela / Lista de Membros -->
+      <!-- Tabela de Membros -->
       <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm text-slate-300">
             <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border">
               <tr>
                 <th class="p-3">Nome</th>
-                <th class="p-3">Cargo</th>
+                <th class="p-3">Cargo Ministerial</th>
+                <th class="p-3">Instrumento</th>
                 <th class="p-3">Idade</th>
                 <th class="p-3">WhatsApp</th>
-                <th class="p-3">Data Cad.</th>
-                <th class="p-3 text-right">Ação</th>
+                <th class="p-3 text-right">Ações</th>
               </tr>
             </thead>
             <tbody id="membros-tbody" class="divide-y divide-brand-border">
@@ -203,7 +237,7 @@
       </div>
     </section>
 
-    <!-- 4. TELA GERADOR DE MENSAGEM (NOVO) -->
+    <!-- 4. TELA GERADOR DE MENSAGEM -->
     <section id="view-relatorio" class="hidden">
       <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-2xl mx-auto space-y-6">
         <div class="flex justify-between items-center pb-4 border-b border-brand-border">
@@ -240,7 +274,6 @@
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="py-4 text-center text-xs text-slate-500 border-t border-brand-border">
@@ -257,22 +290,21 @@
       getDocs, 
       doc, 
       updateDoc, 
+      deleteDoc,
       serverTimestamp,
       query,
       orderBy 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-    // ==========================================
-    // COLOQUE SUAS CHAVES DO FIREBASE AQUI:
-    // ==========================================
+    // Configuração do Firebase
     const firebaseConfig = {
-    apiKey: "AIzaSyAjiQaRSQYWKqudSpVeEBJJgi_QzRC3O0o",
-    authDomain: "adpassos-179f6.firebaseapp.com",
-    projectId: "adpassos-179f6",
-    storageBucket: "adpassos-179f6.firebasestorage.app",
-    messagingSenderId: "939956165072",
-    appId: "1:939956165072:web:ddcd66ccf2e6ab395101d5"
-  };
+      apiKey: "AIzaSyAjiQaRSQYWKqudSpVeEBJJgi_QzRC3O0o",
+      authDomain: "adpassos-179f6.firebaseapp.com",
+      projectId: "adpassos-179f6",
+      storageBucket: "adpassos-179f6.firebasestorage.app",
+      messagingSenderId: "939956165072",
+      appId: "1:939956165072:web:ddcd66ccf2e6ab395101d5"
+    };
 
     // Inicialização
     const app = initializeApp(firebaseConfig);
@@ -296,7 +328,7 @@
         const tbody = document.getElementById('membros-tbody');
         if (tbody) {
           tbody.innerHTML = `
-            <tr><td colspan="6" class="p-4 text-center text-red-400">Configure as chaves do Firebase para sincronizar os dados.</td></tr>
+            <tr><td colspan="6" class="p-4 text-center text-red-400">Erro ao carregar membros. Verifique a conexão com o Firebase.</td></tr>
           `;
         }
       }
@@ -311,28 +343,36 @@
         return;
       }
       tbody.innerHTML = list.map(m => {
-        let dtCad = '--';
-        if (m.dataCadastro && m.dataCadastro.toDate) {
-          dtCad = m.dataCadastro.toDate().toLocaleDateString('pt-BR');
-        }
         return `
           <tr class="hover:bg-brand-dark/40 transition">
-            <td class="p-3 font-semibold text-white">${m.nome || ''}</td>
-            <td class="p-3 text-slate-300">${m.cargo || ''}</td>
-            <td class="p-3 text-slate-400">${m.idade || '--'} anos</td>
-            <td class="p-3 text-slate-400">${m.whatsapp || ''}</td>
-            <td class="p-3 text-slate-500 text-xs">${dtCad}</td>
-            <td class="p-3 text-right">
-              <button onclick="editMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-brand-gold/10 text-brand-gold border border-brand-gold/40 rounded hover:bg-brand-gold hover:text-black transition">
-                Editar
-              </button>
+            <td class="p-3 font-semibold text-white">
+              ${m.nome || ''}
+              <div class="text-[11px] text-slate-500 font-normal sm:hidden">${m.estadoCivil || ''}</div>
+            </td>
+            <td class="p-3 text-slate-300">
+              <span class="inline-block px-2 py-0.5 text-xs rounded bg-brand-border/60 text-slate-200">
+                ${m.cargo || 'Membro'}
+              </span>
+            </td>
+            <td class="p-3 text-slate-300 text-xs">${m.instrumento || 'Não'}</td>
+            <td class="p-3 text-slate-400">${m.idade ? m.idade + ' anos' : '--'}</td>
+            <td class="p-3 text-slate-400 text-xs">${m.whatsapp || ''}</td>
+            <td class="p-3 text-right whitespace-nowrap">
+              <div class="inline-flex gap-1.5">
+                <button onclick="editMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-brand-gold/10 text-brand-gold border border-brand-gold/40 rounded hover:bg-brand-gold hover:text-black transition">
+                  Editar
+                </button>
+                <button onclick="deleteMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500 hover:text-white transition">
+                  Excluir
+                </button>
+              </div>
             </td>
           </tr>
         `;
       }).join('');
     };
 
-    // Submissão do formulário
+    // Submissão do formulário (Criar / Editar)
     document.getElementById("member-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const id = document.getElementById("edit-id").value;
@@ -340,8 +380,9 @@
         nome: document.getElementById("nome").value.trim(),
         dataNascimento: document.getElementById("dataNascimento").value,
         idade: document.getElementById("idade").value,
-        cargo: document.getElementById("cargo").value.trim(),
+        cargo: document.getElementById("cargo").value,
         estadoCivil: document.getElementById("estadoCivil").value,
+        instrumento: document.getElementById("instrumento").value,
         whatsapp: document.getElementById("whatsapp").value.trim()
       };
 
@@ -363,6 +404,7 @@
       }
     });
 
+    // Editar membro
     window.editMember = function(id) {
       const member = window.allMembers.find(m => m.id === id);
       if (!member) return;
@@ -371,13 +413,32 @@
       document.getElementById("nome").value = member.nome || '';
       document.getElementById("dataNascimento").value = member.dataNascimento || '';
       document.getElementById("idade").value = member.idade || '';
-      document.getElementById("cargo").value = member.cargo || '';
+      document.getElementById("cargo").value = member.cargo || 'Membro';
       document.getElementById("estadoCivil").value = member.estadoCivil || '';
+      document.getElementById("instrumento").value = member.instrumento || 'Não';
       document.getElementById("whatsapp").value = member.whatsapp || '';
 
       document.getElementById("form-title").innerText = "Editar Membro";
       document.getElementById("btn-submit").innerText = "Salvar Alterações";
       navTo('cadastro');
+    };
+
+    // Excluir membro
+    window.deleteMember = async function(id) {
+      const member = window.allMembers.find(m => m.id === id);
+      const memberName = member ? member.nome : "este membro";
+      
+      const confirmDelete = confirm(`Tem certeza que deseja excluir o cadastro de "${memberName}"?`);
+      if (!confirmDelete) return;
+
+      try {
+        await deleteDoc(doc(db, "membros", id));
+        alert("Cadastro excluído com sucesso!");
+        loadMembers();
+      } catch (err) {
+        console.error("Erro ao excluir membro:", err);
+        alert("Erro ao excluir do Firebase: " + err.message);
+      }
     };
 
     // Inicializar carregamento
@@ -397,7 +458,6 @@
       if (screen === 'pesquisa') document.getElementById("view-pesquisa").classList.remove("hidden");
       if (screen === 'relatorio') {
         document.getElementById("view-relatorio").classList.remove("hidden");
-        // Define data de hoje por padrão se estiver vazio
         const dateInput = document.getElementById("filtro-data-cadastro");
         if (!dateInput.value) {
           dateInput.value = new Date().toISOString().split('T')[0];
@@ -412,6 +472,7 @@
       document.getElementById("form-title").innerText = "Cadastrar Membro";
       document.getElementById("btn-submit").innerText = "Registrar";
       document.getElementById("idade").value = "";
+      document.getElementById("instrumento").value = "Não";
     }
 
     // Formata Data YYYY-MM-DD para DD/MM/AAAA
@@ -457,11 +518,12 @@
       let message = `“📋 NOVOS MEMBROS — AD PASSOS CHURCH”\n\n`;
 
       filtered.forEach((m, idx) => {
-        message += `${(m.nome || '').toUpperCase()}\n`;
-        message += `Nasc.: ${formatDateBR(m.dataNascimento)}\n`;
-        message += `Idade: ${m.idade || '--'}\n`;
-        message += `Est. Civil: ${m.estadoCivil || '--'}\n`;
-        message += `📱Whatsapp: ${m.whatsapp || '--'}\n`;
+        message += `👤 *${(m.nome || '').toUpperCase()}*\n`;
+        message += `• Cargo: ${m.cargo || 'Membro'}\n`;
+        message += `• Nasc.: ${formatDateBR(m.dataNascimento)} (${m.idade || '--'} anos)\n`;
+        message += `• Est. Civil: ${m.estadoCivil || '--'}\n`;
+        message += `• Instrumento: ${m.instrumento || 'Não'}\n`;
+        message += `• WhatsApp: ${m.whatsapp || '--'}\n`;
         
         if (idx < filtered.length - 1) {
           message += `\n-------------------------\n\n`;
@@ -493,29 +555,37 @@
     // Filtros da aba de pesquisa
     function applyFilters() {
       const text = document.getElementById("filtro-nome").value.toLowerCase();
+      const cargo = document.getElementById("filtro-cargo").value;
       const civil = document.getElementById("filtro-estado-civil").value;
 
       const filtered = (window.allMembers || []).filter(m => {
-        const matchText = (m.nome && m.nome.toLowerCase().includes(text)) || 
-                          (m.cargo && m.cargo.toLowerCase().includes(text));
+        const matchText = (m.nome && m.nome.toLowerCase().includes(text));
+        const matchCargo = cargo === "" || m.cargo === cargo;
         const matchCivil = civil === "" || m.estadoCivil === civil;
-        return matchText && matchCivil;
+        return matchText && matchCargo && matchCivil;
       });
 
       window.renderTable(filtered);
     }
 
-    // Cálculo dinâmico da idade
+    // Cálculo dinâmico da idade sem erro de timezone
     function handleBirthDateChange(dateString) {
       if (!dateString) {
         document.getElementById('idade').value = '';
         return;
       }
-      const birth = new Date(dateString);
+      const parts = dateString.split('-');
+      if (parts.length !== 3) return;
+
+      const birthYear = parseInt(parts[0], 10);
+      const birthMonth = parseInt(parts[1], 10) - 1;
+      const birthDay = parseInt(parts[2], 10);
+
       const today = new Date();
-      let age = today.getFullYear() - birth.getFullYear();
-      const m = today.getMonth() - birth.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+      let age = today.getFullYear() - birthYear;
+      const m = today.getMonth() - birthMonth;
+
+      if (m < 0 || (m === 0 && today.getDate() < birthDay)) {
         age--;
       }
       document.getElementById('idade').value = age >= 0 ? age : 0;
