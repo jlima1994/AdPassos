@@ -495,15 +495,15 @@
       return dateStr;
     }
 
-    // Abre diretamente a conversa no WhatsApp Web
+    // Abre universalmente (App no celular ou Web/App no PC)
     function openDirectWhatsApp(phone) {
       if (!phone) return;
       let digits = phone.replace(/\D/g, "");
       if (!digits) return;
       if (digits.length <= 11) {
-        digits = "55" + digits; // DDI Brasil padrão
+        digits = "55" + digits; // DDI Brasil
       }
-      const url = `https://web.whatsapp.com/send?phone=${digits}`;
+      const url = `https://wa.me/${digits}`;
       window.open(url, '_blank');
     }
 
@@ -566,11 +566,11 @@
       });
     }
 
-    // Abrir diretamente no WhatsApp Web / App
+    // Compartilhar universalmente via WhatsApp
     function shareWhatsApp() {
       const text = document.getElementById("texto-relatorio").value;
       if (!text) return;
-      const url = `https://web.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
     }
 
