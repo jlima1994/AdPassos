@@ -1450,31 +1450,56 @@
       }
     }
 
-    function copyGroupMessageText() {
+    function showToastNotification() {
+      const toast = document.getElementById("toast-copiado");
+      if (!toast) return;
+      toast.classList.remove("hidden");
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 3000);
+    }
+
+    function copyGroupMessageText(showToast = false) {
       const textarea = document.getElementById("grupo-texto-envio");
-      if (!textarea || !textarea.value.trim()) return;
+      if (!textarea || !textarea.value.trim()) return false;
 
       textarea.select();
       document.execCommand('copy');
+      if (showToast) {
+        showToastNotification();
+      }
+      return true;
     }
 
+    // Envio principal: Copia o texto automaticamente e abre o WhatsApp com a mensagem pronta
     function dispatchGroupWhatsApp() {
+      const textarea = document.getElementById("grupo-texto-envio");
+      const text = textarea ? textarea.value.trim() : '';
+
+      // Copia o texto preventivamente para a área de transferência
+      if (text) {
+        copyGroupMessageText(true);
+      }
+
+      // Abre a API universal do WhatsApp com o texto pré-carregado
+      // No WhatsApp Web ou App, abrirá a tela para selecionar o grupo com a mensagem pronta no chat!
+      const encoded = encodeURIComponent(text);
+      const url = `https://api.whatsapp.com/send?text=${encoded}`;
+      window.open(url, '_blank');
+    }
+
+    // Acesso direto ao link do grupo (ex: convite chat.whatsapp.com) com texto copiado
+    function openDirectGroupChat() {
       const select = document.getElementById("grupo-send-select");
       const grpId = select ? select.value : '';
       const grp = (window.allGroups || []).find(g => g.id === grpId);
 
       if (!grp || !grp.link) return;
 
-      const textarea = document.getElementById("grupo-texto-envio");
-      const text = textarea ? textarea.value.trim() : '';
+      // Garante que o texto está copiado
+      copyGroupMessageText(true);
 
-      // Se houver texto, copia para a área de transferência para colar facilmente no grupo
-      if (text) {
-        textarea.select();
-        document.execCommand('copy');
-      }
-
-      // Abre o link do grupo do WhatsApp
+      // Abre o grupo diretamente
       window.open(grp.link, '_blank');
     }
 
