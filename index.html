@@ -117,10 +117,16 @@
         <form id="member-form" class="space-y-4">
           <input type="hidden" id="edit-id" value="" />
 
-          <!-- Nome Completo -->
-          <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Nome Completo *</label>
-            <input type="text" id="nome" required placeholder="Ex: Lucas dos Passos" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+          <!-- Primeiro Nome & Sobrenome (Separados) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Primeiro Nome *</label>
+              <input type="text" id="primeiroNome" required placeholder="Ex: Lucas" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Sobrenome *</label>
+              <input type="text" id="sobrenome" required placeholder="Ex: dos Passos" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
           </div>
 
           <!-- Data de Nascimento & Idade -->
@@ -412,9 +418,10 @@
         return;
       }
       tbody.innerHTML = list.map(m => {
+        const nomeCompleto = getFullName(m);
         return `
           <tr class="hover:bg-brand-dark/40 transition">
-            <td class="p-3 font-semibold text-white">${m.nome || ''}</td>
+            <td class="p-3 font-semibold text-white">${nomeCompleto}</td>
             <td class="p-3 text-slate-300">${m.cargo || 'Membro'}</td>
             <td class="p-3 text-slate-300 text-xs">${m.instrumento || 'Não'}</td>
             <td class="p-3 text-slate-400">${m.idade ? m.idade + ' anos' : '--'}</td>
@@ -448,8 +455,14 @@
     document.getElementById("member-form").addEventListener("submit", async (e) => {
       e.preventDefault();
       const id = document.getElementById("edit-id").value;
+      const primeiroNome = document.getElementById("primeiroNome").value.trim();
+      const sobrenome = document.getElementById("sobrenome").value.trim();
+      const nomeCompleto = `${primeiroNome} ${sobrenome}`.trim();
+
       const data = {
-        nome: document.getElementById("nome").value.trim(),
+        primeiroNome: primeiroNome,
+        sobrenome: sobrenome,
+        nome: nomeCompleto,
         dataNascimento: document.getElementById("dataNascimento").value,
         idade: document.getElementById("idade").value,
         cargo: document.getElementById("cargo").value,
@@ -478,8 +491,18 @@
       const member = window.allMembers.find(m => m.id === id);
       if (!member) return;
 
+      // Suporte retroativo para cadastros antigos com apenas 'nome'
+      let pNome = member.primeiroNome || '';
+      let sNome = member.sobrenome || '';
+      if (!pNome && member.nome) {
+        const parts = member.nome.trim().split(/\s+/);
+        pNome = parts[0] || '';
+        sNome = parts.slice(1).join(' ') || '';
+      }
+
       document.getElementById("edit-id").value = member.id;
-      document.getElementById("nome").value = member.nome || '';
+      document.getElementById("primeiroNome").value = pNome;
+      document.getElementById("sobrenome").value = sNome;
       document.getElementById("dataNascimento").value = member.dataNascimento || '';
       document.getElementById("idade").value = member.idade || '';
       document.getElementById("cargo").value = member.cargo || 'Membro';
@@ -495,7 +518,7 @@
     // Excluir membro
     window.deleteMember = async function(id) {
       const member = window.allMembers.find(m => m.id === id);
-      const memberName = member ? member.nome : "este membro";
+      const memberName = member ? getFullName(member) : "este membro";
       
       const confirmDelete = window.confirm(`Tem certeza que deseja excluir o cadastro de "${memberName}"?`);
       if (!confirmDelete) return;
@@ -545,6 +568,8 @@
     function resetForm() {
       document.getElementById("member-form").reset();
       document.getElementById("edit-id").value = "";
+      document.getElementById("primeiroNome").value = "";
+      document.getElementById("sobrenome").value = "";
       document.getElementById("form-title").innerText = "Cadastrar Membro";
       document.getElementById("btn-submit").innerText = "Registrar";
       document.getElementById("idade").value = "";
@@ -554,6 +579,25 @@
     function setWelcomeToday() {
       document.getElementById("filtro-boasvindas-data").value = new Date().toISOString().split('T')[0];
       renderBoasVindas();
+    }
+
+    // Auxiliar: Obter Primeiro Nome (compatível com cadastros legados)
+    function getFirstName(member) {
+      if (member.primeiroNome && member.primeiroNome.trim()) {
+        return member.primeiroNome.trim();
+      }
+      if (member.nome && member.nome.trim()) {
+        return member.nome.trim().split(/\s+/)[0];
+      }
+      return 'Irmão(ã)';
+    }
+
+    // Auxiliar: Obter Nome Completo
+    function getFullName(member) {
+      if (member.primeiroNome || member.sobrenome) {
+        return `${member.primeiroNome || ''} ${member.sobrenome || ''}`.trim();
+      }
+      return member.nome || '';
     }
 
     // Formata Data YYYY-MM-DD para DD/MM/AAAA
@@ -566,9 +610,9 @@
       return dateStr;
     }
 
-    // Gerar Mensagem Exata de Boas-Vindas
-    function createWelcomeText(nomeMembro) {
-      const nomeFormatado = (nomeMembro || '').trim();
+    // Gerar Mensagem de Boas-Vindas usando APENAS o Primeiro Nome
+    function createWelcomeText(primeiroNome) {
+      const nomeFormatado = (primeiroNome || '').trim();
       return `Olá, ${nomeFormatado}! A paz do Senhor! 🕊️✨\n\n` +
              `É com muita alegria e com o coração grato a Deus que declaramos: seja muito bem-vindo(a) à família AD PASSOS CHURCH! 🏛️💛\n\n` +
              `Ter você conosco é uma bênção para a nossa congregação. Cremos que Deus não une apenas pessoas, Ele une propósitos, e estamos muito felizes por você caminhar e crescer espiritualmente junto com a nossa igreja.\n\n` +
@@ -611,15 +655,20 @@
       }
 
       tbody.innerHTML = filtered.map(m => {
+        const pNome = getFirstName(m);
+        const nomeCompleto = getFullName(m);
         const hasPhone = m.whatsapp && m.whatsapp.replace(/\D/g, "").length >= 10;
         return `
           <tr class="hover:bg-brand-dark/40 transition">
-            <td class="p-3 font-semibold text-white">${m.nome || ''}</td>
+            <td class="p-3 font-semibold text-white">
+              ${nomeCompleto}
+              <div class="text-[11px] text-brand-gold font-normal">Saudação: "Olá, ${pNome}!"</div>
+            </td>
             <td class="p-3 text-slate-300">${m.cargo || 'Membro'}</td>
             <td class="p-3 text-slate-400 text-xs">${m.whatsapp || '--'}</td>
             <td class="p-3 text-right">
               ${hasPhone ? `
-                <button onclick="sendWelcome('${encodeURIComponent(m.nome || '')}', '${m.whatsapp}')" class="px-3 py-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition inline-flex items-center gap-1.5 shadow">
+                <button onclick="sendWelcome('${encodeURIComponent(pNome)}', '${m.whatsapp}')" class="px-3 py-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition inline-flex items-center gap-1.5 shadow">
                   <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
                   <span>Enviar Boas-Vindas</span>
                 </button>
@@ -632,16 +681,16 @@
       }).join('');
     };
 
-    // Disparar Boas-Vindas no WhatsApp com o nome inserido
-    function sendWelcome(encodedName, phone) {
+    // Disparar Boas-Vindas no WhatsApp com APENAS o primeiro nome
+    function sendWelcome(encodedFirstName, phone) {
       if (!phone) return;
       let digits = phone.replace(/\D/g, "");
       if (!digits) return;
       if (digits.length <= 11) {
         digits = "55" + digits; // DDI Brasil
       }
-      const memberName = decodeURIComponent(encodedName);
-      const text = createWelcomeText(memberName);
+      const primeiroNome = decodeURIComponent(encodedFirstName);
+      const text = createWelcomeText(primeiroNome);
       const url = `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
     }
@@ -690,7 +739,8 @@
       let message = `“📋 NOVOS MEMBROS — AD PASSOS CHURCH”\n\n`;
 
       filtered.forEach((m, idx) => {
-        message += `👤 *${(m.nome || '').toUpperCase()}*\n`;
+        const nomeCompleto = getFullName(m);
+        message += `👤 *${nomeCompleto.toUpperCase()}*\n`;
         message += `• Cargo: ${m.cargo || 'Membro'}\n`;
         message += `• Nasc.: ${formatDateBR(m.dataNascimento)} (${m.idade || '--'} anos)\n`;
         message += `• Est. Civil: ${m.estadoCivil || '--'}\n`;
@@ -728,7 +778,8 @@
       const civil = document.getElementById("filtro-estado-civil").value;
 
       const filtered = (window.allMembers || []).filter(m => {
-        const matchText = (m.nome && m.nome.toLowerCase().includes(text));
+        const nomeCompleto = getFullName(m).toLowerCase();
+        const matchText = nomeCompleto.includes(text) || (m.cargo && m.cargo.toLowerCase().includes(text));
         const matchCargo = cargo === "" || m.cargo === cargo;
         const matchCivil = civil === "" || m.estadoCivil === civil;
         return matchText && matchCargo && matchCivil;
