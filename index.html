@@ -65,7 +65,7 @@
       </span>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Membros & Ministério</h2>
       <p class="text-slate-400 max-w-md text-sm mb-8">
-        Selecione uma das opções abaixo para gerenciar os membros da congregação.
+        Selecione uma das opções abaixo para gerenciar membros, comunicados e grupos da congregação.
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
@@ -103,7 +103,6 @@
       </div>
     </section>
 
-
     <!-- 2. TELA DE CADASTRO / EDIÇÃO -->
     <section id="view-cadastro" class="hidden">
       <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-3xl mx-auto">
@@ -118,7 +117,7 @@
         <form id="member-form" class="space-y-5">
           <input type="hidden" id="edit-id" value="" />
 
-          <!-- Bloco: Identificação -->
+          <!-- Bloco: Identificação Básica -->
           <div class="space-y-4">
             <h3 class="text-xs font-bold text-brand-gold uppercase tracking-wider">Identificação Básica</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -245,7 +244,6 @@
       </div>
     </section>
 
-
     <!-- 3. TELA DE PESQUISA / EDIÇÃO -->
     <section id="view-pesquisa" class="hidden space-y-4">
       <div class="bg-brand-card border border-brand-border rounded-xl p-5">
@@ -297,8 +295,7 @@
       </div>
     </section>
 
-
-    <!-- 4. TELA MENSAGENS (COM OPÇÃO DE GRUPOS) -->
+    <!-- 4. TELA MENSAGENS -->
     <section id="view-mensagens" class="hidden space-y-5">
       <!-- Seletor de Modo: Membros vs Grupos do WhatsApp -->
       <div class="bg-brand-card border border-brand-border rounded-xl p-4 sm:p-5 shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -306,7 +303,7 @@
           <h2 class="text-xl font-bold text-white flex items-center gap-2">
             <span>Central de Mensagens</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">Envie mensagens personalizadas para membros individuais ou grupos da igreja</p>
+          <p class="text-xs text-slate-400 mt-0.5">Envie mensagens individuais ou abra o WhatsApp com texto pronto para grupos e comunicados</p>
         </div>
 
         <div class="flex items-center gap-2 w-full sm:w-auto">
@@ -315,7 +312,7 @@
               Membros Individuais
             </button>
             <button id="tab-btn-grupos" onclick="switchMsgMode('grupos')" class="flex-1 sm:flex-initial px-4 py-1.5 text-xs font-semibold rounded-lg transition text-slate-400 hover:text-white">
-              Grupos do WhatsApp
+              Grupos & Comunicados
             </button>
           </div>
 
@@ -326,7 +323,7 @@
         </div>
       </div>
 
-      <!-- PAINEL 1: ENVIAR PARA MEMBROS -->
+      <!-- PAINEL 1: ENVIAR PARA MEMBROS INDIVIDUAIS -->
       <div id="panel-msg-membros" class="space-y-4">
         <div class="bg-brand-card border border-brand-border rounded-xl p-5 shadow-lg">
           <div class="flex justify-between items-center pb-3 border-b border-brand-border">
@@ -387,7 +384,7 @@
           </div>
         </div>
 
-        <!-- Tabela de Membros -->
+        <!-- Tabela de Membros para Envio -->
         <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm text-slate-300">
@@ -411,68 +408,81 @@
         </div>
       </div>
 
-
-      <!-- PAINEL 2: MENSAGEM PARA GRUPOS DO WHATSAPP -->
+      <!-- PAINEL 2: MENSAGEM PARA GRUPOS E COMUNICADOS (PADRONIZADO) -->
       <div id="panel-msg-grupos" class="hidden space-y-6">
         
-        <!-- Bloco 1: Central de Disparo para Grupo -->
+        <!-- Central de Disparo Padronizada: Preenche texto e abre lista de conversas -->
         <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-7 shadow-xl">
           <div class="flex justify-between items-center pb-4 border-b border-brand-border mb-5">
             <div>
               <h3 class="text-base font-bold text-white flex items-center gap-2">
-                <span>Enviar Comunicado para Grupo</span>
+                <span>Enviar Comunicado para Grupos / Contatos</span>
               </h3>
-              <p class="text-xs text-slate-400">Escolha o grupo cadastrado, selecione o modelo de mensagem e abra o WhatsApp</p>
+              <p class="text-xs text-slate-400 mt-1">
+                Ao clicar em enviar, o WhatsApp abrirá a <strong>tela de seleção de conversas</strong> com o texto já pré-digitado. Basta escolher o grupo desejado e enviar com 1 toque!
+              </p>
             </div>
             <button onclick="scrollToGroupTable()" class="text-xs text-brand-gold hover:underline font-semibold flex items-center gap-1">
-              <span>Gerenciar Grupos</span>
+              <span>Grupos Salvos</span>
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
             </button>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <!-- Seleção do Grupo e Modelo -->
+            <!-- Seleção de Modelo e Contexto -->
             <div class="space-y-4">
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Selecione o Grupo do WhatsApp *</label>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Grupo Cadastrado (Opcional - Identificação)</label>
                 <select id="grupo-send-select" onchange="handleGroupSelectionChange()" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
-                  <option value="">Selecione um grupo...</option>
+                  <option value="">Selecione para referência ou digite abaixo...</option>
                 </select>
-                <p id="grupo-selected-link-preview" class="text-[11px] text-slate-500 mt-1 truncate">Nenhum grupo selecionado</p>
+                <p id="grupo-selected-link-preview" class="text-[11px] text-slate-500 mt-1 truncate">Nenhum grupo específico selecionado</p>
               </div>
 
               <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Modelo de Mensagem Padrão</label>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Carregar Modelo de Mensagem Padrão</label>
                 <select id="grupo-tpl-select" onchange="handleGroupTemplateSelect(this.value)" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
-                  <option value="">Carregar modelo padrão...</option>
+                  <option value="">Selecione um modelo pré-cadastrado...</option>
                 </select>
+              </div>
+
+              <div class="p-3.5 bg-brand-dark/70 border border-brand-gold/20 rounded-xl space-y-1">
+                <span class="text-xs font-bold text-brand-gold flex items-center gap-1.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  Fluxo Padronizado do WhatsApp
+                </span>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                  O texto abaixo é codificado e aberto na tela nativa de encaminhamento do WhatsApp. Além disso, uma cópia de segurança é guardada na sua área de transferência para praticidade.
+                </p>
               </div>
             </div>
 
             <!-- Preview e Edição da Mensagem -->
             <div>
               <div class="flex justify-between items-center mb-1">
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Texto do Comunicado</label>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Texto do Comunicado *</label>
                 <span class="text-[11px] text-slate-500">Editável antes do envio</span>
               </div>
-              <textarea id="grupo-texto-envio" rows="5" placeholder="Digite o comunicado ou selecione um modelo ao lado..." class="w-full bg-brand-dark border border-brand-border rounded-lg p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-gold resize-y"></textarea>
+              <textarea id="grupo-texto-envio" rows="7" placeholder="Digite o comunicado ou selecione um modelo ao lado..." class="w-full bg-brand-dark border border-brand-border rounded-lg p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-gold resize-y font-sans leading-relaxed"></textarea>
             </div>
           </div>
 
-          <!-- Botões de Ação de Envio para Grupo -->
-          <div class="pt-5 border-t border-brand-border mt-5 flex flex-col sm:flex-row gap-3 justify-end">
-            <button onclick="copyGroupMessageText()" class="px-4 py-2.5 border border-brand-border hover:bg-brand-dark text-slate-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-              Copiar Texto do Comunicado
+          <!-- Botões Padronizados de Disparo -->
+          <div class="pt-5 border-t border-brand-border mt-5 flex flex-col sm:flex-row gap-3 justify-end items-stretch sm:items-center">
+            <button onclick="copyGroupMessageText(true)" class="px-4 py-2.5 border border-brand-border hover:bg-brand-dark text-slate-300 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition">
+              <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+              Copiar Mensagem
             </button>
+            
+            <!-- Botão Principal Padronizado: Abre tela de conversas com texto pronto -->
             <button onclick="dispatchGroupWhatsApp()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-lg transition flex items-center justify-center gap-2 shadow-lg">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-              Abrir WhatsApp do Grupo
+              <span>Enviar via WhatsApp (Selecionar Destinatário)</span>
             </button>
           </div>
         </div>
 
-        <!-- Bloco 2: Tabela e Cadastro de Grupos -->
+        <!-- Tabela e Cadastro de Grupos (Biblioteca de Grupos da Igreja) -->
         <div id="section-tabela-grupos" class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-7 shadow-xl space-y-6">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-brand-border">
             <div>
@@ -539,7 +549,6 @@
       </div>
     </section>
 
-
     <!-- MODAL / PAINEL: GERENCIAR MENSAGENS PADRÃO -->
     <div id="modal-templates" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
       <div class="bg-brand-card border border-brand-border rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
@@ -591,7 +600,7 @@
               <input type="text" id="filtro-tpl-titulo" oninput="renderTemplateList()" placeholder="Filtrar por título..." class="bg-brand-dark border border-brand-border rounded-lg px-2.5 py-1 text-xs text-white focus:outline-none focus:border-brand-gold w-48" />
             </div>
             <div id="template-items-container" class="space-y-2">
-              <!-- Inserido dinamicamente via JS -->
+              <!-- Renderizado via JavaScript -->
             </div>
           </div>
         </div>
@@ -604,7 +613,7 @@
       </div>
     </div>
 
-    <!-- 5. TELA GERADOR DE MENSAGEM (RELATÓRIO) -->
+    <!-- 5. TELA GERADOR DE MENSAGEM (RELATÓRIO DIÁRIO) -->
     <section id="view-relatorio" class="hidden">
       <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-2xl mx-auto space-y-6">
         <div class="flex justify-between items-center pb-4 border-b border-brand-border">
@@ -634,19 +643,27 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
             Copiar Mensagem
           </button>
-          <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+          <button onclick="shareWhatsAppReport()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-            Abrir no WhatsApp
+            Encaminhar via WhatsApp
           </button>
         </div>
       </div>
     </section>
+
+    <!-- TOAST DE NOTIFICAÇÃO -->
+    <div id="toast-copiado" class="fixed bottom-6 right-6 bg-slate-900 border border-brand-gold text-white px-4 py-3 rounded-xl shadow-2xl z-50 hidden flex items-center gap-3 transition">
+      <div class="w-6 h-6 rounded-full bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-xs shrink-0">✓</div>
+      <div class="text-xs">
+        <p class="font-bold text-brand-gold">Texto pronto no WhatsApp!</p>
+        <p class="text-slate-300">Escolha o destinatário na lista de conversas.</p>
+      </div>
+    </div>
   </main>
 
   <footer class="py-4 text-center text-xs text-slate-500 border-t border-brand-border">
     AD Passos Church &bull; Painel de Membros
   </footer>
-
 
   <!-- FIREBASE SCRIPTS (SDK Modular v10) -->
   <script type="module">
@@ -723,7 +740,7 @@
           window.allGroups.push({ id: docSnap.id, ...docSnap.data() });
         });
       } catch (err) {
-        console.warn("Erro ao buscar grupos do Firestore, usando armazenamento local:", err);
+        console.warn("Erro ao buscar grupos do Firestore:", err);
         if (!window.allGroups) window.allGroups = [];
       }
       renderGroupsTable();
@@ -751,57 +768,6 @@
         }
       }
     }
-
-    // Renderizar tabela de pesquisa geral
-    window.renderTable = function(list) {
-      const tbody = document.getElementById("membros-tbody");
-      if (!tbody) return;
-      if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500">Nenhum membro encontrado.</td></tr>`;
-        return;
-      }
-      tbody.innerHTML = list.map(m => {
-        const nomeCompleto = getFullName(m);
-        const batizadoBadge = m.batizado === 'Sim' ? '<span class="text-emerald-400 font-semibold">Batizado</span>' : '<span class="text-amber-400 font-semibold">Não Batizado</span>';
-        const discipuladoTxt = m.discipuladoBatismo || 'Pendente';
-        const cursoTxt = m.cursoMembro || 'Pendente';
-        return `
-          <tr class="hover:bg-brand-dark/40 transition">
-            <td class="p-3 font-semibold text-white">
-              ${nomeCompleto}
-              <div class="text-[11px] text-slate-400 font-normal">Curso: ${cursoTxt} &bull; ${batizadoBadge}</div>
-            </td>
-            <td class="p-3 text-slate-300">${m.cargo || 'Membro'}</td>
-            <td class="p-3 text-slate-300 text-xs">
-              <div>Disc. Batismo: <span class="font-semibold text-slate-200">${discipuladoTxt}</span></div>
-              <div class="text-[11px] text-slate-400">Grupo: ${m.grupoDiscipulado || 'Não'}</div>
-            </td>
-            <td class="p-3 text-slate-400">${m.idade ? m.idade + ' anos' : '--'}</td>
-            <td class="p-3 text-slate-400 text-xs">
-              <div class="flex items-center gap-2">
-                <span>${m.whatsapp || ''}</span>
-                ${m.whatsapp ? `
-                  <button onclick="openDirectWhatsApp('${m.whatsapp}')" title="Enviar Mensagem via Whatsapp" class="inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded hover:bg-emerald-600 hover:text-white transition">
-                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
-                    <span>WhatsApp</span>
-                  </button>
-                ` : ''}
-              </div>
-            </td>
-            <td class="p-3 text-right whitespace-nowrap">
-              <div class="inline-flex gap-1.5">
-                <button onclick="editMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-brand-gold/10 text-brand-gold border border-brand-gold/40 rounded hover:bg-brand-gold hover:text-black transition">
-                  Editar
-                </button>
-                <button onclick="deleteMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500 hover:text-white transition">
-                  Excluir
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    };
 
     // Submissão do formulário de membro (Criar / Editar)
     document.getElementById("member-form").addEventListener("submit", async (e) => {
@@ -897,9 +863,7 @@
       const titulo = document.getElementById("tpl-titulo").value.trim();
       const texto = document.getElementById("tpl-texto").value.trim();
 
-      if (!titulo || !texto) {
-        return;
-      }
+      if (!titulo || !texto) return;
 
       const tplData = { titulo, texto, dataAtualizacao: serverTimestamp() };
 
@@ -945,10 +909,7 @@
       }
     };
 
-    // ==========================================
-    // CRUD: GRUPOS DO WHATSAPP (FIRESTORE)
-    // ==========================================
-
+    // CRUD: Grupos do WhatsApp
     window.saveGroupToFirestore = async function(groupObj) {
       try {
         if (groupObj.id) {
@@ -961,8 +922,7 @@
         }
         await loadGroups();
       } catch (err) {
-        console.error("Erro ao salvar grupo no Firebase:", err);
-        // Fallback local
+        console.error("Erro ao salvar grupo:", err);
         if (groupObj.id) {
           const idx = window.allGroups.findIndex(g => g.id === groupObj.id);
           if (idx !== -1) window.allGroups[idx] = groupObj;
@@ -991,14 +951,13 @@
       }
     };
 
-    // Inicialização geral
+    // Inicialização
     loadTemplates();
     loadGroups();
     loadMembers();
   </script>
 
-
-  <!-- FUNÇÕES DE INTERFACE, FILTROS, DISPARO E GRUPOS -->
+  <!-- FUNÇÕES DE CONTROLE DE INTERFACE, FILTROS E DISPARO WHATSAPP -->
   <script>
     function navTo(screen) {
       document.getElementById("view-home").classList.add("hidden");
@@ -1026,7 +985,7 @@
       }
     }
 
-    // Alternar entre envio para Membros e Grupos do WhatsApp
+    // Alternar sub-abas na tela Mensagens
     function switchMsgMode(mode) {
       const btnMembros = document.getElementById("tab-btn-membros");
       const btnGrupos = document.getElementById("tab-btn-grupos");
@@ -1064,7 +1023,7 @@
       document.getElementById("grupoDiscipulado").value = "Sim";
     }
 
-    // Auxiliares de Nome
+    // Funções de formatação de nomes
     function getFirstName(member) {
       if (member.primeiroNome && member.primeiroNome.trim()) {
         return member.primeiroNome.trim();
@@ -1166,7 +1125,7 @@
       }).join('');
     }
 
-    // Filtros e Renderização da Aba de Membros
+    // Filtros e Renderização de Membros na aba Mensagens
     function applyMsgFilters() {
       const nomeQuery = (document.getElementById("filtro-msg-nome")?.value || '').toLowerCase();
       const curso = document.getElementById("filtro-msg-curso")?.value || '';
@@ -1262,7 +1221,7 @@
       }).join('');
     }
 
-    // Disparar WhatsApp para Membro com template
+    // Disparar WhatsApp para membro individual com mensagem personalizada
     function dispatchCustomWhatsApp(memberId) {
       const member = (window.allMembers || []).find(m => m.id === memberId);
       if (!member || !member.whatsapp) return;
@@ -1271,9 +1230,7 @@
       const tplId = select ? select.value : '';
       const template = (window.allTemplates || []).find(t => t.id === tplId);
 
-      if (!template || !template.texto) {
-        return;
-      }
+      if (!template || !template.texto) return;
 
       const pNome = getFirstName(member);
       let finalMessage = template.texto
@@ -1290,9 +1247,87 @@
     }
 
     // ==========================================
-    // LÓGICA DE GRUPOS DO WHATSAPP
+    // DISPARO PADRONIZADO PARA GRUPOS E COMUNICADOS
     // ==========================================
 
+    function showToastNotification(title, subtitle) {
+      const toast = document.getElementById("toast-copiado");
+      if (!toast) return;
+      if (title) {
+        const textTitle = toast.querySelector(".text-xs p.font-bold");
+        if (textTitle) textTitle.innerText = title;
+      }
+      if (subtitle) {
+        const textSub = toast.querySelector(".text-xs p.text-slate-300");
+        if (textSub) textSub.innerText = subtitle;
+      }
+      toast.classList.remove("hidden");
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 4000);
+    }
+
+    function copyGroupMessageText(showToast = false) {
+      const textarea = document.getElementById("grupo-texto-envio");
+      if (!textarea || !textarea.value.trim()) return false;
+
+      textarea.select();
+      document.execCommand('copy');
+      if (showToast) {
+        showToastNotification("Mensagem copiada!", "Texto copiado para a área de transferência com sucesso.");
+      }
+      return true;
+    }
+
+    // Disparo oficial padronizado: Abre a tela do WhatsApp com o texto pré-digitado para selecionar destinatário
+    function dispatchGroupWhatsApp() {
+      const textarea = document.getElementById("grupo-texto-envio");
+      const text = textarea ? textarea.value.trim() : '';
+
+      if (!text) {
+        showToastNotification("Aviso", "Digite ou selecione uma mensagem para enviar!");
+        if (textarea) textarea.focus();
+        return;
+      }
+
+      // Cópia preventiva para conveniência
+      copyGroupMessageText(false);
+      showToastNotification("Abrindo WhatsApp...", "Escolha o grupo ou contato para enviar.");
+
+      // Protocolo oficial para abertura com seleção de destinatários:
+      const encoded = encodeURIComponent(text);
+      const url = `https://api.whatsapp.com/send?text=${encoded}`;
+      window.open(url, '_blank');
+    }
+
+    function handleGroupSelectionChange() {
+      const select = document.getElementById("grupo-send-select");
+      const preview = document.getElementById("grupo-selected-link-preview");
+      if (!select || !preview) return;
+
+      const grp = (window.allGroups || []).find(g => g.id === select.value);
+      if (grp) {
+        preview.innerText = `Grupo Selecionado: ${grp.nome} (${grp.link || 'Sem link'})`;
+      } else {
+        preview.innerText = "Nenhum grupo específico selecionado";
+      }
+    }
+
+    function handleGroupTemplateSelect(tplId) {
+      if (!tplId) return;
+      const tpl = (window.allTemplates || []).find(t => t.id === tplId);
+      if (!tpl) return;
+
+      const textarea = document.getElementById("grupo-texto-envio");
+      if (textarea) {
+        let groupText = tpl.texto
+          .replace(/\[Nome\]/gi, "amados irmãos")
+          .replace(/\[Primeiro Nome\]/gi, "amados irmãos");
+        textarea.value = groupText;
+      }
+    }
+
+    // CRUD de Grupos do WhatsApp
     function handleGroupSubmit(e) {
       e.preventDefault();
       const id = document.getElementById("group-edit-id").value;
@@ -1354,7 +1389,7 @@
       if (badge) badge.innerText = `${list.length} grupo(s)`;
 
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-slate-500">Nenhum grupo cadastrado ainda. Cadastre acima o primeiro grupo da igreja.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-slate-500">Nenhum grupo cadastrado ainda. Cadastre acima os grupos oficiais da igreja.</td></tr>`;
         return;
       }
 
@@ -1398,7 +1433,7 @@
         return;
       }
 
-      let options = `<option value="">Selecione um grupo...</option>`;
+      let options = `<option value="">Selecione para referência ou digite abaixo...</option>`;
       list.forEach(g => {
         options += `<option value="${g.id}">${g.nome}</option>`;
       });
@@ -1415,92 +1450,11 @@
       if (!select) return;
 
       const templates = window.allTemplates || [];
-      let options = `<option value="">Carregar modelo padrão...</option>`;
+      let options = `<option value="">Selecione um modelo pré-cadastrado...</option>`;
       templates.forEach(t => {
         options += `<option value="${t.id}">${t.titulo}</option>`;
       });
       select.innerHTML = options;
-    }
-
-    function handleGroupTemplateSelect(tplId) {
-      if (!tplId) return;
-      const tpl = (window.allTemplates || []).find(t => t.id === tplId);
-      if (!tpl) return;
-
-      const textarea = document.getElementById("grupo-texto-envio");
-      if (textarea) {
-        // Remove [Nome] se for modelo com tag individual, substituindo por saudação coletiva
-        let groupText = tpl.texto
-          .replace(/\[Nome\]/gi, "amados irmãos")
-          .replace(/\[Primeiro Nome\]/gi, "amados irmãos");
-        textarea.value = groupText;
-      }
-    }
-
-    function handleGroupSelectionChange() {
-      const select = document.getElementById("grupo-send-select");
-      const preview = document.getElementById("grupo-selected-link-preview");
-      if (!select || !preview) return;
-
-      const grp = (window.allGroups || []).find(g => g.id === select.value);
-      if (grp) {
-        preview.innerHTML = `Link ativo: <a href="${grp.link}" target="_blank" class="text-brand-gold hover:underline font-mono">${grp.link}</a>`;
-      } else {
-        preview.innerText = "Nenhum grupo selecionado";
-      }
-    }
-
-    function showToastNotification() {
-      const toast = document.getElementById("toast-copiado");
-      if (!toast) return;
-      toast.classList.remove("hidden");
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 3000);
-    }
-
-    function copyGroupMessageText(showToast = false) {
-      const textarea = document.getElementById("grupo-texto-envio");
-      if (!textarea || !textarea.value.trim()) return false;
-
-      textarea.select();
-      document.execCommand('copy');
-      if (showToast) {
-        showToastNotification();
-      }
-      return true;
-    }
-
-    // Envio principal: Copia o texto automaticamente e abre o WhatsApp com a mensagem pronta
-    function dispatchGroupWhatsApp() {
-      const textarea = document.getElementById("grupo-texto-envio");
-      const text = textarea ? textarea.value.trim() : '';
-
-      // Copia o texto preventivamente para a área de transferência
-      if (text) {
-        copyGroupMessageText(true);
-      }
-
-      // Abre a API universal do WhatsApp com o texto pré-carregado
-      // No WhatsApp Web ou App, abrirá a tela para selecionar o grupo com a mensagem pronta no chat!
-      const encoded = encodeURIComponent(text);
-      const url = `https://api.whatsapp.com/send?text=${encoded}`;
-      window.open(url, '_blank');
-    }
-
-    // Acesso direto ao link do grupo (ex: convite chat.whatsapp.com) com texto copiado
-    function openDirectGroupChat() {
-      const select = document.getElementById("grupo-send-select");
-      const grpId = select ? select.value : '';
-      const grp = (window.allGroups || []).find(g => g.id === grpId);
-
-      if (!grp || !grp.link) return;
-
-      // Garante que o texto está copiado
-      copyGroupMessageText(true);
-
-      // Abre o grupo diretamente
-      window.open(grp.link, '_blank');
     }
 
     // Abertura universal de conversa direta de membro
@@ -1515,7 +1469,7 @@
       window.open(url, '_blank');
     }
 
-    // Relatório consolidado
+    // Relatório consolidado diário
     function generateReportMessage() {
       const selectedDate = document.getElementById("filtro-data-cadastro").value;
       const textarea = document.getElementById("texto-relatorio");
@@ -1571,12 +1525,13 @@
       if (!textarea || !textarea.value) return;
       textarea.select();
       document.execCommand('copy');
+      showToastNotification("Relatório copiado!", "Texto copiado para a área de transferência.");
     }
 
-    function shareWhatsApp() {
+    function shareWhatsAppReport() {
       const text = document.getElementById("texto-relatorio").value;
       if (!text) return;
-      const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
     }
 
