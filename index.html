@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Membros - AD Passos Church</title>
+  
+  <!-- Google Fonts & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#D4AF37',
+              goldHover: '#B8972E',
+              dark: '#0F1012',
+              card: '#181A1E',
+              border: '#2A2D34'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brand-dark text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-gold selection:text-black">
+
+  <!-- CABEÇALHO -->
+  <header class="border-b border-brand-border bg-brand-card/70 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full border-2 border-brand-gold flex items-center justify-center font-extrabold text-brand-gold text-lg bg-black">
+          AD
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-wide text-white">AD PASSOS CHURCH</h1>
+          <p class="text-xs text-brand-gold uppercase tracking-wider font-semibold">Gestão Eclesiástica</p>
+        </div>
+      </div>
+      <nav class="flex flex-wrap gap-2 justify-center">
+        <button onclick="navTo('home')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-border hover:border-brand-gold text-slate-300">Início</button>
+        <button onclick="navTo('cadastro')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition bg-brand-gold hover:bg-brand-goldHover text-black font-bold">Cadastrar</button>
+        <button onclick="navTo('pesquisa')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-border hover:border-brand-gold text-slate-300">Membros</button>
+        <button onclick="navTo('mensagens')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-gold/60 text-brand-gold hover:bg-brand-gold hover:text-black font-semibold">Mensagens</button>
+        <button onclick="navTo('relatorio')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-border hover:border-brand-gold text-slate-300">Relatório Diário</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
+
+    <!-- 1. TELA INICIAL -->
+    <section id="view-home" class="py-10 flex flex-col items-center justify-center text-center">
+      <span class="text-brand-gold font-bold text-xs uppercase tracking-widest bg-brand-gold/10 px-3 py-1 rounded-full border border-brand-gold/20 mb-3">
+        Painel Administrativo
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Gestão de Membros & Comunicação</h2>
+      <p class="text-slate-400 max-w-lg text-sm mb-8">
+        Selecione uma das opções para gerenciar cadastros, enviar mensagens e acompanhar o ministério.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl">
+        <button onclick="navTo('cadastro')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
+          <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
+            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
+          </div>
+          <span class="font-bold text-white text-sm">NOVO CADASTRO</span>
+        </button>
+
+        <button onclick="navTo('pesquisa')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
+          <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
+            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+          <span class="font-bold text-white text-sm">LISTA DE MEMBROS</span>
+        </button>
+
+        <button onclick="navTo('mensagens')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
+          <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
+            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+          </div>
+          <span class="font-bold text-white text-sm">CENTRAL DE MENSAGENS</span>
+        </button>
+
+        <button onclick="navTo('relatorio')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
+          <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
+            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          </div>
+          <span class="font-bold text-white text-sm">RELATÓRIO DIÁRIO</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 2. TELA DE CADASTRO / EDIÇÃO -->
+    <section id="view-cadastro" class="hidden">
+      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-3xl mx-auto">
+        <div class="flex justify-between items-center mb-6 pb-4 border-b border-brand-border">
+          <div>
+            <h2 id="form-title" class="text-xl font-bold text-white">Cadastrar Membro</h2>
+            <p class="text-xs text-slate-400">Preencha os campos abaixo com as informações do membro</p>
+          </div>
+          <button onclick="navTo('home')" class="text-xs text-slate-400 hover:text-white underline">Voltar</button>
+        </div>
+
+        <form id="member-form" class="space-y-4">
+          <input type="hidden" id="edit-id" value="" />
+
+          <!-- Primeiro Nome & Sobrenome -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Primeiro Nome *</label>
+              <input type="text" id="primeiroNome" required placeholder="Ex: Lucas" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Sobrenome *</label>
+              <input type="text" id="sobrenome" required placeholder="Ex: dos Passos Silva" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
+          </div>
+
+          <!-- Data de Nascimento & Idade -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Data de Nascimento *</label>
+              <input type="date" id="dataNascimento" required onchange="handleBirthDateChange(this.value)" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Idade (Calculada)</label>
+              <input type="text" id="idade" readonly placeholder="--" class="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-3 py-2 text-sm text-brand-gold font-bold focus:outline-none cursor-not-allowed" />
+            </div>
+          </div>
+
+          <!-- Possui Cargo Ministerial & Estado Civil -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Possui Cargo Ministerial? *</label>
+              <select id="cargo" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
+                <option value="Membro">Membro (Sem cargo ministerial)</option>
+                <option value="Diácono / Diaconisa">Diácono / Diaconisa</option>
+                <option value="Presbítero">Presbítero</option>
+                <option value="Evangelista">Evangelista</option>
+                <option value="Pastor / Pastora">Pastor / Pastora</option>
+                <option value="Missionário(a)">Missionário(a)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Estado Civil *</label>
+              <select id="estadoCivil" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
+                <option value="">Selecione...</option>
+                <option value="Solteiro(a)">Solteiro(a)</option>
+                <option value="Casado(a)">Casado(a)</option>
+                <option value="Divorciado(a)">Divorciado(a)</option>
+                <option value="Viúvo(a)">Viúvo(a)</option>
+                <option value="União Estável">União Estável</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Toca Instrumento & WhatsApp -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Toca algum instrumento musical? *</label>
+              <select id="instrumento" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
+                <option value="Não">Não toca nenhum instrumento</option>
+                <option value="Violão">Violão</option>
+                <option value="Teclado / Piano">Teclado / Piano</option>
+                <option value="Bateria / Percussão">Bateria / Percussão</option>
+                <option value="Baixo">Baixo</option>
+                <option value="Guitarra">Guitarra</option>
+                <option value="Voz / Vocal">Voz / Vocal</option>
+                <option value="Outro">Outro instrumento</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">WhatsApp (XX-9XXXX-XXXX) *</label>
+              <input type="tel" id="whatsapp" required placeholder="11-98765-4321" maxlength="13" oninput="formatWhatsapp(this)" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+            </div>
+          </div>
+
+          <!-- DADOS ECLESIÁSTICOS -->
+          <div class="p-4 rounded-lg bg-brand-dark/50 border border-brand-border space-y-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-brand-gold">Discipulado e Membresia</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Batizado *</label>
+                <select id="batizado" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                  <option value="Sim">Sim</option>
+                  <option value="Não">Não</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Curso de Membro *</label>
+                <select id="cursoMembro" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                  <option value="Concluído">Concluído</option>
+                  <option value="Pendente">Pendente</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Discipulado Batismo *</label>
+                <select id="discipuladoBatismo" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                  <option value="Concluído">Concluído</option>
+                  <option value="Pendente">Pendente</option>
+                  <option value="N/A">N/A</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Grupo Discipulado *</label>
+                <select id="grupoDiscipulado" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                  <option value="Sim">Sim</option>
+                  <option value="Não">Não</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 flex gap-3">
+            <button type="submit" id="btn-submit" class="flex-1 bg-brand-gold hover:bg-brand-goldHover text-black font-bold py-2.5 rounded-lg text-sm transition">
+              Registrar
+            </button>
+            <button type="button" onclick="resetForm()" class="px-4 py-2 border border-brand-border hover:bg-brand-dark text-slate-300 rounded-lg text-sm">
+              Limpar
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. TELA DE PESQUISA / LISTA DE MEMBROS -->
+    <section id="view-pesquisa" class="hidden space-y-4">
+      <div class="bg-brand-card border border-brand-border rounded-xl p-5">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <input type="text" id="filtro-nome" oninput="applyFilters()" placeholder="Filtrar por nome..." class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold" />
+          
+          <select id="filtro-cargo" onchange="applyFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold">
+            <option value="">Todos os Cargos</option>
+            <option value="Membro">Membro</option>
+            <option value="Diácono / Diaconisa">Diácono / Diaconisa</option>
+            <option value="Presbítero">Presbítero</option>
+            <option value="Evangelista">Evangelista</option>
+            <option value="Pastor / Pastora">Pastor / Pastora</option>
+            <option value="Missionário(a)">Missionário(a)</option>
+          </select>
+
+          <select id="filtro-estado-civil" onchange="applyFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold">
+            <option value="">Todos os Estados Civis</option>
+            <option value="Solteiro(a)">Solteiro(a)</option>
+            <option value="Casado(a)">Casado(a)</option>
+            <option value="Divorciado(a)">Divorciado(a)</option>
+            <option value="Viúvo(a)">Viúvo(a)</option>
+            <option value="União Estável">União Estável</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tabela de Membros -->
+      <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border">
+              <tr>
+                <th class="p-3">Nome Completo</th>
+                <th class="p-3">Cargo</th>
+                <th class="p-3">Instrumento</th>
+                <th class="p-3">Idade</th>
+                <th class="p-3">Eclesiástico</th>
+                <th class="p-3">WhatsApp</th>
+                <th class="p-3 text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="membros-tbody" class="divide-y divide-brand-border">
+              <tr>
+                <td colspan="7" class="p-4 text-center text-slate-500">Carregando dados...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. TELA CENTRAL DE MENSAGENS -->
+    <section id="view-mensagens" class="hidden space-y-6">
+      
+      <!-- Sub-navegação interna de Mensagens -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-brand-card border border-brand-border rounded-xl p-4">
+        <div class="flex gap-2">
+          <button id="tab-msg-membros" onclick="setMsgSubTab('membros')" class="px-4 py-2 text-xs font-bold rounded-lg bg-brand-gold text-black transition">
+            Membros Individuais
+          </button>
+          <button id="tab-msg-grupos" onclick="setMsgSubTab('grupos')" class="px-4 py-2 text-xs font-bold rounded-lg border border-brand-border text-slate-300 hover:border-brand-gold transition">
+            Grupos do WhatsApp
+          </button>
+        </div>
+        <div>
+          <button onclick="openModalTemplates()" class="px-3.5 py-1.5 text-xs font-bold bg-brand-gold/10 text-brand-gold border border-brand-gold/40 rounded-lg hover:bg-brand-gold hover:text-black transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+            Gerenciar Mensagens Padrão
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-ABA 1: MENSAGENS PARA MEMBROS INDIVIDUAIS -->
+      <div id="subview-msg-membros" class="space-y-4">
+        <!-- Filtros avançados de envio -->
+        <div class="bg-brand-card border border-brand-border rounded-xl p-5 space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Filtrar Destinatários</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <input type="text" id="filtro-msg-nome" oninput="applyMsgFilters()" placeholder="Buscar por nome..." class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold" />
+            
+            <select id="filtro-msg-curso" onchange="applyMsgFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <option value="">Curso de Membro (Todos)</option>
+              <option value="Concluído">Concluído</option>
+              <option value="Pendente">Pendente</option>
+            </select>
+
+            <select id="filtro-msg-discipulado" onchange="applyMsgFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <option value="">Discipulado Batismo (Todos)</option>
+              <option value="Concluído">Concluído</option>
+              <option value="Pendente">Pendente</option>
+              <option value="N/A">N/A</option>
+            </select>
+
+            <select id="filtro-msg-mes" onchange="applyMsgFilters()" class="bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+              <option value="">Mês de Aniversário (Todos)</option>
+              <option value="01">Janeiro</option>
+              <option value="02">Fevereiro</option>
+              <option value="03">Março</option>
+              <option value="04">Abril</option>
+              <option value="05">Maio</option>
+              <option value="06">Junho</option>
+              <option value="07">Julho</option>
+              <option value="08">Agosto</option>
+              <option value="09">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabela com Seletor de Mensagem Dinâmica -->
+        <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border">
+                <tr>
+                  <th class="p-3">Membro</th>
+                  <th class="p-3">Nascimento</th>
+                  <th class="p-3">WhatsApp</th>
+                  <th class="p-3">Selecionar Mensagem Padrão</th>
+                  <th class="p-3 text-right">Ação</th>
+                </tr>
+              </thead>
+              <tbody id="msg-membros-tbody" class="divide-y divide-brand-border">
+                <tr>
+                  <td colspan="5" class="p-4 text-center text-slate-500">Nenhum membro carregado.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-ABA 2: MENSAGENS PARA GRUPOS DO WHATSAPP -->
+      <div id="subview-msg-grupos" class="hidden space-y-6">
+        
+        <!-- Formulário de Cadastro de Grupo -->
+        <div class="bg-brand-card border border-brand-border rounded-xl p-6">
+          <h3 id="form-grupo-title" class="text-sm font-bold uppercase tracking-wider text-brand-gold mb-3">Cadastrar Novo Grupo</h3>
+          <form id="grupo-form" class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+            <input type="hidden" id="edit-grupo-id" value="" />
+            <div class="sm:col-span-5">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Nome do Grupo *</label>
+              <input type="text" id="grupo-nome" required placeholder="Ex: Grupo Geral AD Passos" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold" />
+            </div>
+            <div class="sm:col-span-5">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Link do Grupo (WhatsApp) *</label>
+              <input type="url" id="grupo-link" required placeholder="https://chat.whatsapp.com/..." class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold" />
+            </div>
+            <div class="sm:col-span-2 flex gap-2">
+              <button type="submit" id="btn-submit-grupo" class="flex-1 bg-brand-gold hover:bg-brand-goldHover text-black font-bold py-2 rounded-lg text-xs transition">
+                Salvar
+              </button>
+              <button type="button" onclick="resetGrupoForm()" class="px-3 py-2 border border-brand-border hover:bg-brand-dark text-slate-300 rounded-lg text-xs">
+                X
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Disparo de Mensagem para Grupos -->
+        <div class="bg-brand-card border border-brand-border rounded-xl p-6 space-y-4">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-brand-gold">Disparar Mensagem para Grupo</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Selecione o Grupo de Destino:</label>
+              <select id="select-grupo-destino" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                <option value="">Selecione um grupo cadastrado...</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Carregar Modelo de Mensagem:</label>
+              <select id="select-grupo-template" onchange="loadGroupTemplateIntoText(this.value)" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                <option value="">Carregar mensagem padrão...</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Texto do Comunicado:</label>
+            <textarea id="texto-grupo-comunicado" rows="8" placeholder="Digite ou ajuste o comunicado para o grupo..." class="w-full bg-brand-dark border border-brand-border rounded-lg p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-brand-gold leading-relaxed font-sans"></textarea>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <button onclick="dispatchGroupWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-xs sm:text-sm transition flex items-center justify-center gap-2">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+              <span>Enviar via WhatsApp (Selecionar Destinatário)</span>
+            </button>
+            <button onclick="copyGroupMessageOnly()" class="px-4 py-2.5 border border-brand-border hover:border-brand-gold text-slate-300 rounded-lg text-xs font-semibold">
+              Copiar Apenas Texto
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabela de Grupos Cadastrados -->
+        <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
+          <div class="p-4 border-b border-brand-border flex justify-between items-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Grupos Cadastrados</span>
+            <span id="badge-total-grupos" class="text-xs text-brand-gold font-bold">0 grupos</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border">
+                <tr>
+                  <th class="p-3">Nome do Grupo</th>
+                  <th class="p-3">Link de Convite</th>
+                  <th class="p-3 text-right">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="grupos-tbody" class="divide-y divide-brand-border">
+                <tr>
+                  <td colspan="3" class="p-4 text-center text-slate-500">Nenhum grupo cadastrado.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- 5. TELA RELATÓRIO DIÁRIO -->
+    <section id="view-relatorio" class="hidden">
+      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-2xl mx-auto space-y-6">
+        <div class="flex justify-between items-center pb-4 border-b border-brand-border">
+          <div>
+            <h2 class="text-xl font-bold text-white">Relatório de Novos Membros</h2>
+            <p class="text-xs text-slate-400">Gere e compartilhe o resumo de cadastros por data</p>
+          </div>
+          <button onclick="navTo('home')" class="text-xs text-slate-400 hover:text-white underline">Voltar</button>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Selecione a Data de Cadastro</label>
+          <input type="date" id="filtro-data-cadastro" onchange="generateReportMessage()" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Mensagem Formatada:</span>
+            <span id="badge-total" class="text-xs text-brand-gold font-bold">0 membros encontrados</span>
+          </div>
+          <textarea id="texto-relatorio" rows="12" readonly class="w-full bg-brand-dark/70 border border-brand-border rounded-lg p-3 text-xs sm:text-sm text-slate-200 font-mono focus:outline-none resize-none leading-relaxed"></textarea>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button onclick="copyToClipboard()" class="flex-1 bg-brand-gold hover:bg-brand-goldHover text-black font-bold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+            Copiar Relatório
+          </button>
+          <button onclick="shareWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2">
+            Compartilhar no WhatsApp
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: GERENCIAMENTO DE MENSAGENS PADRÃO -->
+  <div id="modal-templates" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-brand-border flex justify-between items-center bg-brand-dark/50">
+        <div>
+          <h3 class="font-bold text-white text-base">Gerenciador de Mensagens Padrão</h3>
+          <p class="text-xs text-slate-400">Use a tag <code class="text-brand-gold bg-brand-dark px-1 py-0.5 rounded">[Nome]</code> para substituir pelo primeiro nome do membro.</p>
+        </div>
+        <button onclick="closeModalTemplates()" class="text-slate-400 hover:text-white p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1">
+        <!-- Formulário do Template -->
+        <form id="form-template" class="space-y-3 bg-brand-dark/60 p-4 rounded-xl border border-brand-border">
+          <input type="hidden" id="edit-template-id" value="" />
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Título do Modelo *</label>
+            <input type="text" id="template-titulo" required placeholder="Ex: Boas-Vindas Discipulado, Feliz Aniversário..." class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold" />
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Texto da Mensagem *</label>
+              <button type="button" onclick="insertPlaceholder('[Nome]')" class="text-[11px] text-brand-gold hover:underline font-semibold">+ Inserir [Nome]</button>
+            </div>
+            <textarea id="template-texto" rows="6" required placeholder="Olá, [Nome]! ..." class="w-full bg-brand-dark border border-brand-border rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-brand-gold leading-relaxed font-sans"></textarea>
+          </div>
+          <div class="flex gap-2 justify-end">
+            <button type="button" onclick="resetTemplateForm()" class="px-3 py-1.5 border border-brand-border text-xs rounded-lg text-slate-400 hover:text-white">Cancelar</button>
+            <button type="submit" id="btn-save-template" class="px-4 py-1.5 bg-brand-gold hover:bg-brand-goldHover text-black font-bold text-xs rounded-lg transition">Salvar Modelo</button>
+          </div>
+        </form>
+
+        <!-- Lista de Modelos Existentes -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Modelos Cadastrados</h4>
+          <div id="templates-list" class="space-y-2">
+            <!-- Injetado dinamicamente -->
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 border-t border-brand-border bg-brand-dark/50 text-right">
+        <button onclick="closeModalTemplates()" class="px-4 py-1.5 bg-brand-border text-slate-200 text-xs font-semibold rounded-lg hover:bg-slate-700 transition">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="py-4 text-center text-xs text-slate-500 border-t border-brand-border">
+    AD Passos Church &bull; Painel de Membros
+  </footer>
+
+  <!-- NOTIFICAÇÃO TOAST VISUAL -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-brand-gold text-black px-4 py-2.5 rounded-lg shadow-xl font-bold text-xs opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center gap-2">
+    <span>✓</span> <span id="toast-msg">Mensagem</span>
+  </div>
+
+  <!-- FIREBASE SCRIPTS (SDK Modular v10 com blindagem de erros) -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      getDocs, 
+      doc, 
+      updateDoc, 
+      deleteDoc,
+      serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAjiQaRSQYWKqudSpVeEBJJgi_QzRC3O0o",
+      authDomain: "adpassos-179f6.firebaseapp.com",
+      projectId: "adpassos-179f6",
+      storageBucket: "adpassos-179f6.firebasestorage.app",
+      messagingSenderId: "939956165072",
+      appId: "1:939956165072:web:ddcd66ccf2e6ab395101d5"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    const membersCol = collection(db, "membros");
+    const templatesCol = collection(db, "mensagensPadrao");
+    const groupsCol = collection(db, "gruposWhatsapp");
+
+    window.allMembers = [];
+    window.allTemplates = [];
+    window.allGroups = [];
+
+    // Modelo de Boas-Vindas Padrão de Contingência
+    const defaultWelcomeText = `Olá, [Nome]! A paz do Senhor! 🕊️✨\n\nÉ com muita alegria e com o coração grato a Deus que declaramos: seja muito bem-vindo(a) à família AD PASSOS CHURCH! 🏛️💛\n\nTer você conosco é uma bênção para a nossa congregação. Cremos que Deus não une apenas pessoas, Ele une propósitos, e estamos muito felizes por você caminhar e crescer espiritualmente junto com a nossa igreja.\n\nNós, da Equipe de Discipulado, estamos à sua inteira disposição para apoiar você em seus primeiros passos, tirar dúvidas, orar com você e caminhar lado a lado nesta jornada de fé.\n\n"Assim que já não sois estrangeiros, nem forasteiros, mas concidadãos dos Santos e da família de Deus." — Efésios 2:19\n\nConte sempre conosco! Deus abençoe ricamente sua vida e sua família.\n\nCom carinho e oração,\n*Equipe de Discipulado*\nAD Passos Church 📖🙏`;
+
+    // 1. CARREGAR MEMBROS
+    async function loadMembers() {
+      try {
+        const snapshot = await getDocs(membersCol);
+        window.allMembers = [];
+        snapshot.forEach(docSnap => {
+          window.allMembers.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        
+        // Ordenação local em memória (evita erro de índice no Firestore)
+        window.allMembers.sort((a, b) => {
+          const tA = (a.dataCadastro && a.dataCadastro.toMillis) ? a.dataCadastro.toMillis() : 0;
+          const tB = (b.dataCadastro && b.dataCadastro.toMillis) ? b.dataCadastro.toMillis() : 0;
+          return tB - tA;
+        });
+
+        renderTable(window.allMembers);
+        applyMsgFilters();
+      } catch (err) {
+        console.error("Erro ao carregar membros:", err);
+        const tbody = document.getElementById('membros-tbody');
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-400">Verifique as regras do Firebase no Console: ${err.message}</td></tr>`;
+        }
+      }
+    }
+
+    // 2. CARREGAR TEMPLATES DE MENSAGEM
+    async function loadStandardMessages() {
+      try {
+        const snapshot = await getDocs(templatesCol);
+        window.allTemplates = [];
+        snapshot.forEach(docSnap => {
+          window.allTemplates.push({ id: docSnap.id, ...docSnap.data() });
+        });
+
+        // Se o banco estiver vazio, adiciona o template clássico na nuvem
+        if (window.allTemplates.length === 0) {
+          try {
+            const initialDoc = await addDoc(templatesCol, {
+              titulo: "Boas-Vindas Oficial",
+              texto: defaultWelcomeText,
+              dataCadastro: serverTimestamp()
+            });
+            window.allTemplates.push({
+              id: initialDoc.id,
+              titulo: "Boas-Vindas Oficial",
+              texto: defaultWelcomeText
+            });
+          } catch(e) {
+            window.allTemplates.push({
+              id: 'local_1',
+              titulo: "Boas-Vindas Oficial",
+              texto: defaultWelcomeText
+            });
+          }
+        }
+
+        renderTemplatesModal();
+        applyMsgFilters();
+        updateGroupTemplateSelect();
+      } catch (err) {
+        console.warn("Aviso ao carregar mensagens padrão:", err);
+        window.allTemplates = [{
+          id: 'fallback_1',
+          titulo: "Boas-Vindas Oficial",
+          texto: defaultWelcomeText
+        }];
+        renderTemplatesModal();
+        applyMsgFilters();
+        updateGroupTemplateSelect();
+      }
+    }
+
+    // 3. CARREGAR GRUPOS DO WHATSAPP
+    async function loadGroups() {
+      try {
+        const snapshot = await getDocs(groupsCol);
+        window.allGroups = [];
+        snapshot.forEach(docSnap => {
+          window.allGroups.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        renderGroupsTable(window.allGroups);
+        updateGroupSelectDestination();
+      } catch (err) {
+        console.warn("Aviso ao carregar grupos:", err);
+        renderGroupsTable([]);
+      }
+    }
+
+    // RENDERIZAR TABELA DE MEMBROS
+    window.renderTable = function(list) {
+      const tbody = document.getElementById("membros-tbody");
+      if (!tbody) return;
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-500">Nenhum membro encontrado.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = list.map(m => {
+        const fullName = m.nome || `${m.primeiroNome || ''} ${m.sobrenome || ''}`.trim() || 'Sem Nome';
+        return `
+          <tr class="hover:bg-brand-dark/40 transition">
+            <td class="p-3 font-semibold text-white">
+              ${fullName}
+              <div class="text-[11px] text-slate-500 font-normal">${m.estadoCivil || ''}</div>
+            </td>
+            <td class="p-3 text-slate-300">
+              <span class="inline-block px-2 py-0.5 text-xs rounded bg-brand-border/60 text-slate-200">
+                ${m.cargo || 'Membro'}
+              </span>
+            </td>
+            <td class="p-3 text-slate-300 text-xs">${m.instrumento || 'Não'}</td>
+            <td class="p-3 text-slate-400 text-xs">${m.idade ? m.idade + ' anos' : '--'}</td>
+            <td class="p-3 text-[11px] text-slate-300 space-y-0.5">
+              <div>Bat.: <span class="${m.batizado === 'Sim' ? 'text-emerald-400' : 'text-slate-400'} font-bold">${m.batizado || 'Não'}</span></div>
+              <div>Curso: <span class="${m.cursoMembro === 'Concluído' ? 'text-emerald-400' : 'text-amber-400'}">${m.cursoMembro || 'Pendente'}</span></div>
+            </td>
+            <td class="p-3 text-slate-400 text-xs">
+              <div class="flex items-center gap-2">
+                <span>${m.whatsapp || '--'}</span>
+                ${m.whatsapp ? `
+                  <button onclick="openDirectWhatsApp('${m.whatsapp}')" title="Conversar no WhatsApp" class="p-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded hover:bg-emerald-600 hover:text-white transition">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+                  </button>
+                ` : ''}
+              </div>
+            </td>
+            <td class="p-3 text-right whitespace-nowrap">
+              <div class="inline-flex gap-1.5">
+                <button onclick="editMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-brand-gold/10 text-brand-gold border border-brand-gold/40 rounded hover:bg-brand-gold hover:text-black transition">
+                  Editar
+                </button>
+                <button onclick="deleteMember('${m.id}')" class="px-2.5 py-1 text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500 hover:text-white transition">
+                  Excluir
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    };
+
+    // FORMULÁRIO DE MEMBRO (SALVAR / ATUALIZAR)
+    document.getElementById("member-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("edit-id").value;
+      const primeiroNome = document.getElementById("primeiroNome").value.trim();
+      const sobrenome = document.getElementById("sobrenome").value.trim();
+
+      const data = {
+        primeiroNome,
+        sobrenome,
+        nome: `${primeiroNome} ${sobrenome}`.trim(),
+        dataNascimento: document.getElementById("dataNascimento").value,
+        idade: document.getElementById("idade").value,
+        cargo: document.getElementById("cargo").value,
+        estadoCivil: document.getElementById("estadoCivil").value,
+        instrumento: document.getElementById("instrumento").value,
+        whatsapp: document.getElementById("whatsapp").value.trim(),
+        batizado: document.getElementById("batizado").value,
+        cursoMembro: document.getElementById("cursoMembro").value,
+        discipuladoBatismo: document.getElementById("discipuladoBatismo").value,
+        grupoDiscipulado: document.getElementById("grupoDiscipulado").value
+      };
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, "membros", id), data);
+          showToast("Membro atualizado com sucesso!");
+        } else {
+          data.dataCadastro = serverTimestamp();
+          await addDoc(membersCol, data);
+          showToast("Membro cadastrado com sucesso!");
+        }
+        resetForm();
+        navTo("pesquisa");
+        loadMembers();
+      } catch (err) {
+        console.error("Erro ao salvar membro:", err);
+        alert("Erro no Firebase: " + err.message);
+      }
+    });
+
+    window.editMember = function(id) {
+      const m = window.allMembers.find(item => item.id === id);
+      if (!m) return;
+
+      document.getElementById("edit-id").value = m.id;
+      let pNome = m.primeiroNome || '';
+      let sNome = m.sobrenome || '';
+      if (!pNome && m.nome) {
+        const parts = m.nome.trim().split(" ");
+        pNome = parts[0] || '';
+        sNome = parts.slice(1).join(" ") || '';
+      }
+
+      document.getElementById("primeiroNome").value = pNome;
+      document.getElementById("sobrenome").value = sNome;
+      document.getElementById("dataNascimento").value = m.dataNascimento || '';
+      document.getElementById("idade").value = m.idade || '';
+      document.getElementById("cargo").value = m.cargo || 'Membro';
+      document.getElementById("estadoCivil").value = m.estadoCivil || '';
+      document.getElementById("instrumento").value = m.instrumento || 'Não';
+      document.getElementById("whatsapp").value = m.whatsapp || '';
+      document.getElementById("batizado").value = m.batizado || 'Não';
+      document.getElementById("cursoMembro").value = m.cursoMembro || 'Pendente';
+      document.getElementById("discipuladoBatismo").value = m.discipuladoBatismo || 'Pendente';
+      document.getElementById("grupoDiscipulado").value = m.grupoDiscipulado || 'Não';
+
+      document.getElementById("form-title").innerText = "Editar Membro";
+      document.getElementById("btn-submit").innerText = "Salvar Alterações";
+      navTo('cadastro');
+    };
+
+    window.deleteMember = async function(id) {
+      const m = window.allMembers.find(item => item.id === id);
+      const name = m ? (m.nome || m.primeiroNome) : "este membro";
+      if (!confirm(`Tem certeza que deseja excluir "${name}"?`)) return;
+
+      try {
+        await deleteDoc(doc(db, "membros", id));
+        showToast("Membro excluído!");
+        loadMembers();
+      } catch (err) {
+        alert("Erro ao excluir: " + err.message);
+      }
+    };
+
+    // FORMULÁRIO DE GRUPOS (SALVAR)
+    document.getElementById("grupo-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("edit-grupo-id").value;
+      const data = {
+        nome: document.getElementById("grupo-nome").value.trim(),
+        link: document.getElementById("grupo-link").value.trim()
+      };
+
+      try {
+        if (id) {
+          await updateDoc(doc(db, "gruposWhatsapp", id), data);
+          showToast("Grupo atualizado!");
+        } else {
+          data.dataCadastro = serverTimestamp();
+          await addDoc(groupsCol, data);
+          showToast("Grupo cadastrado!");
+        }
+        resetGrupoForm();
+        loadGroups();
+      } catch (err) {
+        alert("Erro ao salvar grupo: " + err.message);
+      }
+    });
+
+    window.editGrupo = function(id) {
+      const g = window.allGroups.find(item => item.id === id);
+      if (!g) return;
+      document.getElementById("edit-grupo-id").value = g.id;
+      document.getElementById("grupo-nome").value = g.nome || '';
+      document.getElementById("grupo-link").value = g.link || '';
+      document.getElementById("form-grupo-title").innerText = "Editar Grupo";
+      document.getElementById("btn-submit-grupo").innerText = "Salvar";
+    };
+
+    window.deleteGrupo = async function(id) {
+      if (!confirm("Deseja realmente excluir este grupo?")) return;
+      try {
+        await deleteDoc(doc(db, "gruposWhatsapp", id));
+        showToast("Grupo excluído!");
+        loadGroups();
+      } catch (err) {
+        alert("Erro ao excluir grupo: " + err.message);
+      }
+    };
+
+    // FORMULÁRIO DE TEMPLATES (SALVAR)
+    document.getElementById("form-template").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = document.getElementById("edit-template-id").value;
+      const data = {
+        titulo: document.getElementById("template-titulo").value.trim(),
+        texto: document.getElementById("template-texto").value.trim()
+      };
+
+      try {
+        if (id && !id.startsWith("fallback") && !id.startsWith("local")) {
+          await updateDoc(doc(db, "mensagensPadrao", id), data);
+        } else {
+          data.dataCadastro = serverTimestamp();
+          await addDoc(templatesCol, data);
+        }
+        showToast("Modelo salvo com sucesso!");
+        resetTemplateForm();
+        loadStandardMessages();
+      } catch (err) {
+        alert("Erro ao salvar modelo: " + err.message);
+      }
+    });
+
+    window.editTemplate = function(id) {
+      const t = window.allTemplates.find(item => item.id === id);
+      if (!t) return;
+      document.getElementById("edit-template-id").value = t.id;
+      document.getElementById("template-titulo").value = t.titulo || '';
+      document.getElementById("template-texto").value = t.texto || '';
+      document.getElementById("btn-save-template").innerText = "Atualizar Modelo";
+    };
+
+    window.deleteTemplate = async function(id) {
+      if (!confirm("Excluir este modelo de mensagem?")) return;
+      try {
+        if (!id.startsWith("fallback") && !id.startsWith("local")) {
+          await deleteDoc(doc(db, "mensagensPadrao", id));
+        } else {
+          window.allTemplates = window.allTemplates.filter(t => t.id !== id);
+        }
+        showToast("Modelo excluído!");
+        loadStandardMessages();
+      } catch (err) {
+        alert("Erro ao excluir modelo: " + err.message);
+      }
+    };
+
+    // Iniciar tudo de forma segura e assíncrona
+    loadMembers();
+    loadStandardMessages();
+    loadGroups();
+  </script>
+
+  <!-- FUNÇÕES DE INTERFACE, FILTROS E MENSAGENS -->
+  <script>
+    function navTo(screen) {
+      const screens = ['home', 'cadastro', 'pesquisa', 'mensagens', 'relatorio'];
+      screens.forEach(s => {
+        const el = document.getElementById("view-" + s);
+        if (el) el.classList.add("hidden");
+      });
+
+      const current = document.getElementById("view-" + screen);
+      if (current) current.classList.remove("hidden");
+
+      if (screen === 'relatorio') {
+        const d = document.getElementById("filtro-data-cadastro");
+        if (!d.value) d.value = new Date().toISOString().split('T')[0];
+        generateReportMessage();
+      }
+      if (screen === 'mensagens') {
+        applyMsgFilters();
+      }
+    }
+
+    function resetForm() {
+      document.getElementById("member-form").reset();
+      document.getElementById("edit-id").value = "";
+      document.getElementById("form-title").innerText = "Cadastrar Membro";
+      document.getElementById("btn-submit").innerText = "Registrar";
+      document.getElementById("idade").value = "";
+    }
+
+    function resetGrupoForm() {
+      document.getElementById("grupo-form").reset();
+      document.getElementById("edit-grupo-id").value = "";
+      document.getElementById("form-grupo-title").innerText = "Cadastrar Novo Grupo";
+      document.getElementById("btn-submit-grupo").innerText = "Salvar";
+    }
+
+    function setMsgSubTab(sub) {
+      const tabMembros = document.getElementById("tab-msg-membros");
+      const tabGrupos = document.getElementById("tab-msg-grupos");
+      const subMembros = document.getElementById("subview-msg-membros");
+      const subGrupos = document.getElementById("subview-msg-grupos");
+
+      if (sub === 'membros') {
+        tabMembros.className = "px-4 py-2 text-xs font-bold rounded-lg bg-brand-gold text-black transition";
+        tabGrupos.className = "px-4 py-2 text-xs font-bold rounded-lg border border-brand-border text-slate-300 hover:border-brand-gold transition";
+        subMembros.classList.remove("hidden");
+        subGrupos.classList.add("hidden");
+        applyMsgFilters();
+      } else {
+        tabGrupos.className = "px-4 py-2 text-xs font-bold rounded-lg bg-brand-gold text-black transition";
+        tabMembros.className = "px-4 py-2 text-xs font-bold rounded-lg border border-brand-border text-slate-300 hover:border-brand-gold transition";
+        subGrupos.classList.remove("hidden");
+        subMembros.classList.add("hidden");
+      }
+    }
+
+    function applyMsgFilters() {
+      const nome = (document.getElementById("filtro-msg-nome")?.value || '').toLowerCase();
+      const curso = document.getElementById("filtro-msg-curso")?.value || '';
+      const discipulado = document.getElementById("filtro-msg-discipulado")?.value || '';
+      const mes = document.getElementById("filtro-msg-mes")?.value || '';
+
+      const filtered = (window.allMembers || []).filter(m => {
+        const fullName = (m.nome || `${m.primeiroNome || ''} ${m.sobrenome || ''}`).toLowerCase();
+        const matchNome = !nome || fullName.includes(nome);
+        const matchCurso = !curso || m.cursoMembro === curso;
+        const matchDiscipulado = !discipulado || m.discipuladoBatismo === discipulado;
+        
+        let matchMes = true;
+        if (mes && m.dataNascimento) {
+          const parts = m.dataNascimento.split('-');
+          matchMes = (parts[1] === mes);
+        }
+        return matchNome && matchCurso && matchDiscipulado && matchMes;
+      });
+
+      renderMsgMembrosTable(filtered);
+    }
+
+    function renderMsgMembrosTable(list) {
+      const tbody = document.getElementById("msg-membros-tbody");
+      if (!tbody) return;
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500">Nenhum membro encontrado com os filtros selecionados.</td></tr>`;
+        return;
+      }
+
+      const templates = window.allTemplates || [];
+      const templateOptions = templates.map(t => `<option value="${t.id}">${t.titulo}</option>`).join('');
+
+      tbody.innerHTML = list.map(m => {
+        const pNome = m.primeiroNome || (m.nome ? m.nome.split(' ')[0] : 'Irmão(ã)');
+        const fullName = m.nome || `${m.primeiroNome || ''} ${m.sobrenome || ''}`.trim();
+        const birthBR = formatDateBR(m.dataNascimento);
+
+        return `
+          <tr class="hover:bg-brand-dark/40 transition">
+            <td class="p-3 font-semibold text-white">
+              ${fullName}
+              <div class="text-[11px] text-brand-gold font-normal">Saudação: "Olá, ${pNome}!"</div>
+            </td>
+            <td class="p-3 text-slate-400 text-xs">${birthBR}</td>
+            <td class="p-3 text-slate-300 text-xs">${m.whatsapp || '--'}</td>
+            <td class="p-3">
+              <select id="msg-select-${m.id}" class="w-full max-w-xs bg-brand-dark border border-brand-border rounded px-2.5 py-1 text-xs text-white focus:outline-none focus:border-brand-gold">
+                ${templateOptions || '<option value="">Sem modelos cadastrados</option>'}
+              </select>
+            </td>
+            <td class="p-3 text-right whitespace-nowrap">
+              <button onclick="sendMemberTemplate('${m.id}')" ${!m.whatsapp ? 'disabled' : ''} class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold ${m.whatsapp ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-slate-700 text-slate-500 cursor-not-allowed'} rounded-lg transition shadow">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+                <span>Enviar</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function sendMemberTemplate(memberId) {
+      const m = (window.allMembers || []).find(item => item.id === memberId);
+      if (!m || !m.whatsapp) {
+        alert("Membro sem telefone de WhatsApp cadastrado.");
+        return;
+      }
+
+      const selectEl = document.getElementById(`msg-select-${memberId}`);
+      const templateId = selectEl ? selectEl.value : '';
+      const tmpl = (window.allTemplates || []).find(t => t.id === templateId) || window.allTemplates[0];
+
+      if (!tmpl) {
+        alert("Selecione um modelo de mensagem válido.");
+        return;
+      }
+
+      const pNome = m.primeiroNome || (m.nome ? m.nome.split(' ')[0] : 'Irmão(ã)');
+      const finalMsg = tmpl.texto.replace(/\[Nome\]/gi, pNome);
+
+      let digits = m.whatsapp.replace(/\D/g, "");
+      if (digits.length <= 11) digits = "55" + digits;
+
+      const url = `https://wa.me/${digits}?text=${encodeURIComponent(finalMsg)}`;
+      window.open(url, '_blank');
+      showToast(`WhatsApp aberto para ${pNome}!`);
+    }
+
+    function renderGroupsTable(list) {
+      const tbody = document.getElementById("grupos-tbody");
+      const badge = document.getElementById("badge-total-grupos");
+      if (badge) badge.innerText = `${list.length} grupo(s)`;
+      if (!tbody) return;
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-slate-500">Nenhum grupo cadastrado.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(g => `
+        <tr class="hover:bg-brand-dark/40 transition">
+          <td class="p-3 font-semibold text-white">${g.nome}</td>
+          <td class="p-3">
+            <a href="${g.link}" target="_blank" class="text-xs text-brand-gold hover:underline break-all">${g.link}</a>
+          </td>
+          <td class="p-3 text-right whitespace-nowrap">
+            <button onclick="editGrupo('${g.id}')" class="px-2 py-1 text-xs font-semibold text-brand-gold hover:underline">Editar</button>
+            <button onclick="deleteGrupo('${g.id}')" class="px-2 py-1 text-xs font-semibold text-red-400 hover:underline">Excluir</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function updateGroupSelectDestination() {
+      const select = document.getElementById("select-grupo-destino");
+      if (!select) return;
+      const groups = window.allGroups || [];
+      select.innerHTML = `<option value="">Selecione um grupo cadastrado...</option>` +
+        groups.map(g => `<option value="${g.id}">${g.nome}</option>`).join('');
+    }
+
+    function updateGroupTemplateSelect() {
+      const select = document.getElementById("select-grupo-template");
+      if (!select) return;
+      const templates = window.allTemplates || [];
+      select.innerHTML = `<option value="">Carregar mensagem padrão...</option>` +
+        templates.map(t => `<option value="${t.id}">${t.titulo}</option>`).join('');
+    }
+
+    function loadGroupTemplateIntoText(templateId) {
+      if (!templateId) return;
+      const tmpl = (window.allTemplates || []).find(t => t.id === templateId);
+      if (!tmpl) return;
+      let text = tmpl.texto.replace(/\[Nome\]/gi, "irmãos e irmãs");
+      document.getElementById("texto-grupo-comunicado").value = text;
+      showToast("Texto carregado!");
+    }
+
+    function dispatchGroupWhatsApp() {
+      const text = document.getElementById("texto-grupo-comunicado").value.trim();
+      if (!text) {
+        alert("Digite ou carregue o texto do comunicado antes de enviar.");
+        return;
+      }
+
+      navigator.clipboard.writeText(text).catch(() => {});
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+      showToast("WhatsApp aberto! Selecione o grupo destinatário.");
+    }
+
+    function copyGroupMessageOnly() {
+      const text = document.getElementById("texto-grupo-comunicado").value.trim();
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Texto copiado para a memória!");
+      });
+    }
+
+    function openModalTemplates() {
+      document.getElementById("modal-templates").classList.remove("hidden");
+      renderTemplatesModal();
+    }
+
+    function closeModalTemplates() {
+      document.getElementById("modal-templates").classList.add("hidden");
+      resetTemplateForm();
+    }
+
+    function resetTemplateForm() {
+      document.getElementById("form-template").reset();
+      document.getElementById("edit-template-id").value = "";
+      document.getElementById("btn-save-template").innerText = "Salvar Modelo";
+    }
+
+    function insertPlaceholder(tag) {
+      const ta = document.getElementById("template-texto");
+      ta.value += tag;
+      ta.focus();
+    }
+
+    function renderTemplatesModal() {
+      const listEl = document.getElementById("templates-list");
+      if (!listEl) return;
+      const templates = window.allTemplates || [];
+
+      if (!templates.length) {
+        listEl.innerHTML = `<div class="text-xs text-slate-500">Nenhum modelo cadastrado.</div>`;
+        return;
+      }
+
+      listEl.innerHTML = templates.map(t => `
+        <div class="p-3 bg-brand-dark rounded-lg border border-brand-border flex justify-between items-start gap-3">
+          <div class="space-y-1">
+            <h5 class="text-xs font-bold text-white">${t.titulo}</h5>
+            <p class="text-[11px] text-slate-400 line-clamp-2">${t.texto}</p>
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="editTemplate('${t.id}')" class="text-xs text-brand-gold hover:underline">Editar</button>
+            <button onclick="deleteTemplate('${t.id}')" class="text-xs text-red-400 hover:underline">Excluir</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function generateReportMessage() {
+      const selectedDate = document.getElementById("filtro-data-cadastro").value;
+      const textarea = document.getElementById("texto-relatorio");
+      const badge = document.getElementById("badge-total");
+
+      if (!selectedDate) {
+        textarea.value = "Por favor, selecione uma data.";
+        badge.innerText = "0 membros encontrados";
+        return;
+      }
+
+      const filtered = (window.allMembers || []).filter(m => {
+        if (!m.dataCadastro || !m.dataCadastro.toDate) return false;
+        const d = m.dataCadastro.toDate();
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}` === selectedDate;
+      });
+
+      badge.innerText = `${filtered.length} membro(s) encontrado(s)`;
+
+      if (filtered.length === 0) {
+        textarea.value = `“📋 NOVOS MEMBROS — AD PASSOS CHURCH”\n\nNenhum membro cadastrado nesta data (${formatDateBR(selectedDate)}).`;
+        return;
+      }
+
+      let message = `“📋 NOVOS MEMBROS — AD PASSOS CHURCH”\n\n`;
+      filtered.forEach((m, idx) => {
+        const fullName = m.nome || `${m.primeiroNome || ''} ${m.sobrenome || ''}`.trim();
+        message += `👤 *${fullName.toUpperCase()}*\n`;
+        message += `• Cargo: ${m.cargo || 'Membro'}\n`;
+        message += `• Nasc.: ${formatDateBR(m.dataNascimento)} (${m.idade || '--'} anos)\n`;
+        message += `• Est. Civil: ${m.estadoCivil || '--'}\n`;
+        message += `• Instrumento: ${m.instrumento || 'Não'}\n`;
+        message += `• Batizado: ${m.batizado || 'Não'}\n`;
+        message += `• Curso de Membro: ${m.cursoMembro || 'Pendente'}\n`;
+        message += `• WhatsApp: ${m.whatsapp || '--'}\n`;
+        if (idx < filtered.length - 1) {
+          message += `\n-------------------------\n\n`;
+        }
+      });
+
+      textarea.value = message;
+    }
+
+    function copyToClipboard() {
+      const textarea = document.getElementById("texto-relatorio");
+      if (!textarea.value) return;
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        showToast("Relatório copiado!");
+      });
+    }
+
+    function shareWhatsApp() {
+      const text = document.getElementById("texto-relatorio").value;
+      if (!text) return;
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function applyFilters() {
+      const text = document.getElementById("filtro-nome").value.toLowerCase();
+      const cargo = document.getElementById("filtro-cargo").value;
+      const civil = document.getElementById("filtro-estado-civil").value;
+
+      const filtered = (window.allMembers || []).filter(m => {
+        const fullName = (m.nome || `${m.primeiroNome || ''} ${m.sobrenome || ''}`).toLowerCase();
+        const matchText = fullName.includes(text);
+        const matchCargo = cargo === "" || m.cargo === cargo;
+        const matchCivil = civil === "" || m.estadoCivil === civil;
+        return matchText && matchCargo && matchCivil;
+      });
+
+      window.renderTable(filtered);
+    }
+
+    function openDirectWhatsApp(phone) {
+      if (!phone) return;
+      let digits = phone.replace(/\D/g, "");
+      if (digits.length <= 11) digits = "55" + digits;
+      window.open(`https://wa.me/${digits}`, '_blank');
+    }
+
+    function handleBirthDateChange(dateString) {
+      if (!dateString) {
+        document.getElementById('idade').value = '';
+        return;
+      }
+      const parts = dateString.split('-');
+      if (parts.length !== 3) return;
+
+      const birthYear = parseInt(parts[0], 10);
+      const birthMonth = parseInt(parts[1], 10) - 1;
+      const birthDay = parseInt(parts[2], 10);
+
+      const today = new Date();
+      let age = today.getFullYear() - birthYear;
+      const m = today.getMonth() - birthMonth;
+
+      if (m < 0 || (m === 0 && today.getDate() < birthDay)) {
+        age--;
+      }
+      document.getElementById('idade').value = age >= 0 ? age : 0;
+    }
+
+    function formatWhatsapp(input) {
+      let v = input.value.replace(/\D/g, "");
+      if (v.length > 11) v = v.substring(0, 11);
+      if (v.length > 7) {
+        v = v.replace(/^(\d{2})(\d{5})(\d{0,4})/, "$1-$2-$3");
+      } else if (v.length > 2) {
+        v = v.replace(/^(\d{2})(\d{0,5})/, "$1-$2");
+      }
+      input.value = v;
+    }
+
+    function formatDateBR(dateStr) {
+      if (!dateStr) return '--';
+      const parts = dateStr.split('-');
+      if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      return dateStr;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      const msgEl = document.getElementById("toast-msg");
+      if (!toast || !msgEl) return;
+      msgEl.innerText = msg;
+      toast.classList.remove("opacity-0", "pointer-events-none");
+      setTimeout(() => {
+        toast.classList.add("opacity-0", "pointer-events-none");
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
