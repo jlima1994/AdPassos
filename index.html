@@ -36,7 +36,7 @@
   <!-- CABEÇALHO -->
   <header class="border-b border-brand-border bg-brand-card/70 backdrop-blur sticky top-0 z-40">
     <div class="max-w-5xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navTo('home')">
         <div class="w-10 h-10 rounded-full border-2 border-brand-gold flex items-center justify-center font-extrabold text-brand-gold text-lg bg-black">
           AD
         </div>
@@ -49,13 +49,14 @@
         <button onclick="navTo('home')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-border hover:border-brand-gold text-slate-300">Início</button>
         <button onclick="navTo('cadastro')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition bg-brand-gold hover:bg-brand-goldHover text-black font-bold">Cadastrar</button>
         <button onclick="navTo('pesquisa')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-border hover:border-brand-gold text-slate-300">Pesquisar</button>
+        <button onclick="navTo('boasvindas')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-border hover:border-brand-gold text-slate-300">Boas-Vindas</button>
         <button onclick="navTo('relatorio')" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg transition border border-brand-gold/60 text-brand-gold hover:bg-brand-gold hover:text-black">Gerar Mensagem</button>
       </nav>
     </div>
   </header>
 
   <!-- CONTEÚDO PRINCIPAL -->
-  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6">
+  <main class="flex-1 max-w-4xl w-full mx-auto p-4 sm:p-6">
 
     <!-- 1. TELA INICIAL -->
     <section id="view-home" class="py-12 flex flex-col items-center justify-center text-center">
@@ -67,7 +68,7 @@
         Selecione uma das opções abaixo para gerenciar os membros da congregação.
       </p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
         <!-- Botão Cadastro -->
         <button onclick="navTo('cadastro')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
           <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
@@ -84,6 +85,14 @@
           <span class="font-bold text-white text-sm">PESQUISAR / EDITAR</span>
         </button>
 
+        <!-- Botão Boas-Vindas -->
+        <button onclick="navTo('boasvindas')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
+          <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
+            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          </div>
+          <span class="font-bold text-white text-sm">BOAS-VINDAS</span>
+        </button>
+
         <!-- Botão Gerador de Mensagem -->
         <button onclick="navTo('relatorio')" class="p-6 bg-brand-card hover:bg-brand-card/80 border border-brand-border hover:border-brand-gold rounded-xl flex flex-col items-center gap-3 transition shadow-lg group">
           <div class="w-12 h-12 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center group-hover:scale-110 transition">
@@ -96,7 +105,7 @@
 
     <!-- 2. TELA DE CADASTRO / EDIÇÃO -->
     <section id="view-cadastro" class="hidden">
-      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-3xl mx-auto">
+      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl">
         <div class="flex justify-between items-center mb-6 pb-4 border-b border-brand-border">
           <div>
             <h2 id="form-title" class="text-xl font-bold text-white">Cadastrar Membro</h2>
@@ -126,13 +135,13 @@
             </div>
           </div>
 
-          <!-- Possui Cargo Ministerial & Estado Civil -->
+          <!-- Cargo & Estado Civil -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Possui Cargo Ministerial? *</label>
               <select id="cargo" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
                 <option value="">Selecione...</option>
-                <option value="Membro">Membro (Sem cargo ministerial)</option>
+                <option value="Membro">Membro</option>
                 <option value="Diácono / Diaconisa">Diácono / Diaconisa</option>
                 <option value="Presbítero">Presbítero</option>
                 <option value="Evangelista">Evangelista</option>
@@ -153,19 +162,19 @@
             </div>
           </div>
 
-          <!-- Toca Instrumento & WhatsApp -->
+          <!-- Instrumento & WhatsApp -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Toca algum instrumento musical? *</label>
               <select id="instrumento" required class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition">
-                <option value="Não">Não toca nenhum instrumento</option>
+                <option value="Não">Não</option>
                 <option value="Violão">Violão</option>
                 <option value="Teclado / Piano">Teclado / Piano</option>
                 <option value="Bateria / Percussão">Bateria / Percussão</option>
                 <option value="Baixo">Baixo</option>
                 <option value="Guitarra">Guitarra</option>
                 <option value="Voz / Vocal">Voz / Vocal</option>
-                <option value="Outro">Outro instrumento</option>
+                <option value="Outro">Outro</option>
               </select>
             </div>
             <div>
@@ -213,14 +222,14 @@
         </div>
       </div>
 
-      <!-- Tabela de Membros -->
+      <!-- Tabela / Lista de Membros -->
       <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm text-slate-300">
             <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border">
               <tr>
                 <th class="p-3">Nome</th>
-                <th class="p-3">Cargo Ministerial</th>
+                <th class="p-3">Cargo</th>
                 <th class="p-3">Instrumento</th>
                 <th class="p-3">Idade</th>
                 <th class="p-3">WhatsApp</th>
@@ -237,7 +246,64 @@
       </div>
     </section>
 
-    <!-- 4. TELA GERADOR DE MENSAGEM -->
+    <!-- 4. TELA MENSAGEM DE BOAS-VINDAS -->
+    <section id="view-boasvindas" class="hidden space-y-4">
+      <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl">
+        <div class="flex justify-between items-center pb-4 border-b border-brand-border mb-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">Mensagem de Boas-Vindas</h2>
+            <p class="text-xs text-slate-400">Filtre membros pela data de cadastro para enviar a mensagem personalizada de acolhimento</p>
+          </div>
+          <button onclick="navTo('home')" class="text-xs text-slate-400 hover:text-white underline">Voltar</button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 items-end">
+          <div class="flex-1 w-full">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1">Selecione a Data de Cadastro</label>
+            <input type="date" id="filtro-boasvindas-data" onchange="renderBoasVindas()" class="w-full bg-brand-dark border border-brand-border rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-gold transition" />
+          </div>
+          <button onclick="setWelcomeToday()" class="px-4 py-2 border border-brand-border hover:border-brand-gold text-slate-300 rounded-lg text-sm transition">
+            Hoje
+          </button>
+        </div>
+
+        <div class="mt-4 flex justify-between items-center">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Membros Encontrados:</span>
+          <span id="badge-boasvindas" class="text-xs text-brand-gold font-bold">0 membros</span>
+        </div>
+      </div>
+
+      <!-- Prévia do Texto Oficial -->
+      <div class="bg-brand-card/50 border border-brand-border rounded-xl p-4 text-xs text-slate-400">
+        <p class="font-semibold text-slate-300 mb-1 uppercase tracking-wider text-[11px]">Texto Padrão Enviado:</p>
+        <p class="italic text-slate-300 leading-relaxed font-sans">
+          "Olá, <span class="text-brand-gold font-semibold">[Nome do Membro]</span>! A paz do Senhor! 🕊️✨ É com muita alegria e com o coração grato a Deus que declaramos: seja muito bem-vindo(a) à família AD PASSOS CHURCH! 🏛️💛..."
+        </p>
+      </div>
+
+      <!-- Tabela / Lista de Boas-Vindas -->
+      <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden shadow-lg">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-brand-dark text-xs uppercase tracking-wider text-slate-400 border-b border-brand-border">
+              <tr>
+                <th class="p-3">Nome</th>
+                <th class="p-3">Cargo</th>
+                <th class="p-3">WhatsApp</th>
+                <th class="p-3 text-right">Enviar Boas-Vindas</th>
+              </tr>
+            </thead>
+            <tbody id="boasvindas-tbody" class="divide-y divide-brand-border">
+              <tr>
+                <td colspan="4" class="p-4 text-center text-slate-500">Selecione uma data para carregar os membros.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TELA GERADOR DE MENSAGEM (RELATÓRIO) -->
     <section id="view-relatorio" class="hidden">
       <div class="bg-brand-card border border-brand-border rounded-xl p-6 sm:p-8 shadow-xl max-w-2xl mx-auto space-y-6">
         <div class="flex justify-between items-center pb-4 border-b border-brand-border">
@@ -296,7 +362,7 @@
       orderBy 
     } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 
-    // Configuração do Firebase
+    // Configurações do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyAjiQaRSQYWKqudSpVeEBJJgi_QzRC3O0o",
       authDomain: "adpassos-179f6.firebaseapp.com",
@@ -323,12 +389,15 @@
           window.allMembers.push({ id: docSnap.id, ...docSnap.data() });
         });
         renderTable(window.allMembers);
+        if (typeof window.renderBoasVindas === 'function') {
+          window.renderBoasVindas();
+        }
       } catch (err) {
         console.error("Erro ao carregar membros:", err);
         const tbody = document.getElementById('membros-tbody');
         if (tbody) {
           tbody.innerHTML = `
-            <tr><td colspan="6" class="p-4 text-center text-red-400">Erro ao carregar membros. Verifique a conexão com o Firebase.</td></tr>
+            <tr><td colspan="6" class="p-4 text-center text-red-400">Erro ao carregar dados do Firebase.</td></tr>
           `;
         }
       }
@@ -345,20 +414,13 @@
       tbody.innerHTML = list.map(m => {
         return `
           <tr class="hover:bg-brand-dark/40 transition">
-            <td class="p-3 font-semibold text-white">
-              ${m.nome || ''}
-              <div class="text-[11px] text-slate-500 font-normal sm:hidden">${m.estadoCivil || ''}</div>
-            </td>
-            <td class="p-3 text-slate-300">
-              <span class="inline-block px-2 py-0.5 text-xs rounded bg-brand-border/60 text-slate-200">
-                ${m.cargo || 'Membro'}
-              </span>
-            </td>
+            <td class="p-3 font-semibold text-white">${m.nome || ''}</td>
+            <td class="p-3 text-slate-300">${m.cargo || 'Membro'}</td>
             <td class="p-3 text-slate-300 text-xs">${m.instrumento || 'Não'}</td>
             <td class="p-3 text-slate-400">${m.idade ? m.idade + ' anos' : '--'}</td>
             <td class="p-3 text-slate-400 text-xs">
               <div class="flex items-center gap-2">
-                <span>${m.whatsapp || '--'}</span>
+                <span>${m.whatsapp || ''}</span>
                 ${m.whatsapp ? `
                   <button onclick="openDirectWhatsApp('${m.whatsapp}')" title="Enviar Mensagem via Whatsapp" class="inline-flex items-center gap-1 px-2 py-1 text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded hover:bg-emerald-600 hover:text-white transition">
                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
@@ -399,18 +461,15 @@
       try {
         if (id) {
           await updateDoc(doc(db, "membros", id), data);
-          alert("Membro atualizado com sucesso!");
         } else {
           data.dataCadastro = serverTimestamp();
           await addDoc(membersCol, data);
-          alert("Membro cadastrado com sucesso!");
         }
         resetForm();
         navTo("pesquisa");
         loadMembers();
       } catch (err) {
         console.error("Erro ao salvar:", err);
-        alert("Erro ao salvar dados no Firebase.");
       }
     });
 
@@ -438,16 +497,14 @@
       const member = window.allMembers.find(m => m.id === id);
       const memberName = member ? member.nome : "este membro";
       
-      const confirmDelete = confirm(`Tem certeza que deseja excluir o cadastro de "${memberName}"?`);
+      const confirmDelete = window.confirm(`Tem certeza que deseja excluir o cadastro de "${memberName}"?`);
       if (!confirmDelete) return;
 
       try {
         await deleteDoc(doc(db, "membros", id));
-        alert("Cadastro excluído com sucesso!");
         loadMembers();
       } catch (err) {
         console.error("Erro ao excluir membro:", err);
-        alert("Erro ao excluir do Firebase: " + err.message);
       }
     };
 
@@ -455,17 +512,26 @@
     loadMembers();
   </script>
 
-  <!-- FUNÇÕES DE INTERFACE, FILTROS E GERADOR DE MENSAGEM -->
+  <!-- FUNÇÕES DE INTERFACE, FILTROS E MENSAGENS -->
   <script>
     function navTo(screen) {
       document.getElementById("view-home").classList.add("hidden");
       document.getElementById("view-cadastro").classList.add("hidden");
       document.getElementById("view-pesquisa").classList.add("hidden");
+      document.getElementById("view-boasvindas").classList.add("hidden");
       document.getElementById("view-relatorio").classList.add("hidden");
 
       if (screen === 'home') document.getElementById("view-home").classList.remove("hidden");
       if (screen === 'cadastro') document.getElementById("view-cadastro").classList.remove("hidden");
       if (screen === 'pesquisa') document.getElementById("view-pesquisa").classList.remove("hidden");
+      if (screen === 'boasvindas') {
+        document.getElementById("view-boasvindas").classList.remove("hidden");
+        const dateInput = document.getElementById("filtro-boasvindas-data");
+        if (!dateInput.value) {
+          dateInput.value = new Date().toISOString().split('T')[0];
+        }
+        renderBoasVindas();
+      }
       if (screen === 'relatorio') {
         document.getElementById("view-relatorio").classList.remove("hidden");
         const dateInput = document.getElementById("filtro-data-cadastro");
@@ -485,6 +551,11 @@
       document.getElementById("instrumento").value = "Não";
     }
 
+    function setWelcomeToday() {
+      document.getElementById("filtro-boasvindas-data").value = new Date().toISOString().split('T')[0];
+      renderBoasVindas();
+    }
+
     // Formata Data YYYY-MM-DD para DD/MM/AAAA
     function formatDateBR(dateStr) {
       if (!dateStr) return '--';
@@ -495,19 +566,99 @@
       return dateStr;
     }
 
-    // Abre universalmente (App no celular ou Web/App no PC)
-    function openDirectWhatsApp(phone) {
+    // Gerar Mensagem Exata de Boas-Vindas
+    function createWelcomeText(nomeMembro) {
+      const nomeFormatado = (nomeMembro || '').trim();
+      return `Olá, ${nomeFormatado}! A paz do Senhor! 🕊️✨\n\n` +
+             `É com muita alegria e com o coração grato a Deus que declaramos: seja muito bem-vindo(a) à família AD PASSOS CHURCH! 🏛️💛\n\n` +
+             `Ter você conosco é uma bênção para a nossa congregação. Cremos que Deus não une apenas pessoas, Ele une propósitos, e estamos muito felizes por você caminhar e crescer espiritualmente junto com a nossa igreja.\n\n` +
+             `Nós, da Equipe de Discipulado, estamos à sua inteira disposição para apoiar você em seus primeiros passos, tirar dúvidas, orar com você e caminhar lado a lado nesta jornada de fé.\n\n` +
+             `"Assim que já não sois estrangeiros, nem forasteiros, mas concidadãos dos Santos e da família de Deus." — Efésios 2:19\n\n` +
+             `Conte sempre conosco! Deus abençoe ricamente sua vida e sua família.\n\n` +
+             `Com carinho e oração,\n` +
+             `*Equipe de Discipulado*\n` +
+             `AD Passos Church 📖🙏`;
+    }
+
+    // Renderizar tabela de Boas-Vindas filtrada por data de cadastro
+    window.renderBoasVindas = function() {
+      const selectedDate = document.getElementById("filtro-boasvindas-data").value;
+      const tbody = document.getElementById("boasvindas-tbody");
+      const badge = document.getElementById("badge-boasvindas");
+
+      if (!tbody) return;
+      if (!selectedDate) {
+        tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-500">Selecione uma data para carregar os membros.</td></tr>`;
+        badge.innerText = "0 membros";
+        return;
+      }
+
+      const filtered = (window.allMembers || []).filter(m => {
+        if (!m.dataCadastro || !m.dataCadastro.toDate) return false;
+        const d = m.dataCadastro.toDate();
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const memberDate = `${year}-${month}-${day}`;
+        return memberDate === selectedDate;
+      });
+
+      badge.innerText = `${filtered.length} membro(s) encontrado(s)`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-500">Nenhum membro cadastrado em ${formatDateBR(selectedDate)}.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(m => {
+        const hasPhone = m.whatsapp && m.whatsapp.replace(/\D/g, "").length >= 10;
+        return `
+          <tr class="hover:bg-brand-dark/40 transition">
+            <td class="p-3 font-semibold text-white">${m.nome || ''}</td>
+            <td class="p-3 text-slate-300">${m.cargo || 'Membro'}</td>
+            <td class="p-3 text-slate-400 text-xs">${m.whatsapp || '--'}</td>
+            <td class="p-3 text-right">
+              ${hasPhone ? `
+                <button onclick="sendWelcome('${encodeURIComponent(m.nome || '')}', '${m.whatsapp}')" class="px-3 py-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition inline-flex items-center gap-1.5 shadow">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.299.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+                  <span>Enviar Boas-Vindas</span>
+                </button>
+              ` : `
+                <span class="text-xs text-slate-500 italic">Sem número</span>
+              `}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    };
+
+    // Disparar Boas-Vindas no WhatsApp com o nome inserido
+    function sendWelcome(encodedName, phone) {
       if (!phone) return;
       let digits = phone.replace(/\D/g, "");
       if (!digits) return;
       if (digits.length <= 11) {
         digits = "55" + digits; // DDI Brasil
       }
+      const memberName = decodeURIComponent(encodedName);
+      const text = createWelcomeText(memberName);
+      const url = `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    // Abre universalmente (App no celular ou Web/App no PC)
+    function openDirectWhatsApp(phone) {
+      if (!phone) return;
+      let digits = phone.replace(/\D/g, "");
+      if (!digits) return;
+      if (digits.length <= 11) {
+        digits = "55" + digits;
+      }
       const url = `https://wa.me/${digits}`;
       window.open(url, '_blank');
     }
 
-    // Lógica para gerar o texto da Mensagem
+    // Lógica para gerar o relatório consolidado
     function generateReportMessage() {
       const selectedDate = document.getElementById("filtro-data-cadastro").value;
       const textarea = document.getElementById("texto-relatorio");
@@ -519,7 +670,6 @@
         return;
       }
 
-      // Filtrar membros comparando o dia/mês/ano local
       const filtered = (window.allMembers || []).filter(m => {
         if (!m.dataCadastro || !m.dataCadastro.toDate) return false;
         const d = m.dataCadastro.toDate();
@@ -558,12 +708,9 @@
     // Copiar Texto para Área de Transferência
     function copyToClipboard() {
       const textarea = document.getElementById("texto-relatorio");
-      if (!textarea.value) return;
-      navigator.clipboard.writeText(textarea.value).then(() => {
-        alert("Mensagem copiada para a área de transferência!");
-      }).catch(err => {
-        alert("Erro ao copiar: " + err);
-      });
+      if (!textarea || !textarea.value) return;
+      textarea.select();
+      document.execCommand('copy');
     }
 
     // Compartilhar universalmente via WhatsApp
